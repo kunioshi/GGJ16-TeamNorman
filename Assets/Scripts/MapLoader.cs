@@ -11,6 +11,8 @@ public class MapLoader : MonoBehaviour {
 	public GameObject[] mountainPrefabs;
 	public GameObject[] volcanoPrefabs;
 
+	private List<Tile> loadedTiles = new List<Tile> ();
+
 	// Use this for initialization
 	void Start () {
 	
@@ -33,6 +35,33 @@ public class MapLoader : MonoBehaviour {
 		foreach (Tile tile in visibleTiles) {
 			CreateGridTile (tile);
 		}
+
+		// Save/Reset the already loaded tiles
+		loadedTiles = visibleTiles;
+	}
+
+	public void LoadMapForWalk () {
+		List<Tile> newVisibleTiles = tileManager.getVisibleTiles (playerStatus.playerGridPosition);
+
+		foreach (Tile tile in newVisibleTiles) {
+			
+			if (!CheckLoadedTile (tile)) {
+				CreateGridTile (tile);
+
+				loadedTiles.Add (tile);
+			}
+		}
+	}
+
+	bool CheckLoadedTile (Tile tile) {
+		foreach (Tile t in loadedTiles) {
+			if (t.Position == tile.Position) {
+				Debug.Log ((t.Position == tile.Position) + " : " + t.Position.x + "," + t.Position.y + " / " + tile.Position.x + "," + tile.Position.y);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void CreateGridTile (Tile tile) {

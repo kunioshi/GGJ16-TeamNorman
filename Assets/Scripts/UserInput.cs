@@ -12,6 +12,7 @@ public class UserInput : MonoBehaviour {
 	
 	public TileManager tileManager;
 	public PlayerStatus playerStatus;
+	public MapLoader mapLoader;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +35,7 @@ public class UserInput : MonoBehaviour {
 
 				// Start the move animation
 				playerBehave.MoveDirection (dir);
+				LoadMapOnWalk ();
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
 
@@ -42,6 +44,7 @@ public class UserInput : MonoBehaviour {
 
 				// Start the move animation
 				playerBehave.MoveDirection (dir);
+				LoadMapOnWalk ();
 			} else if (inputMouseButton0) {
 				GetMouseClickPosition ();
 			}
@@ -65,8 +68,12 @@ public class UserInput : MonoBehaviour {
 		}
 	}
 
+	void LoadMapOnWalk () {
+		mapLoader.LoadMapForWalk ();
+	}
+
 	void GetMouseClickPosition () {
-		// Converting Mouse Pos to 2D (vector2) World Pos
+		// Converting Mouse Pos to 2D (Vector2) World Pos
 		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
 
@@ -78,11 +85,11 @@ public class UserInput : MonoBehaviour {
 			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 
 			// Pathfinder
-//			List<Tile> path = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+			List<Tile> path = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
 
-//			if (path != null) {
-//				playerBehave.MoveThroughPath (path);
-//			}
+			if (path != null) {
+				playerBehave.MoveThroughPath (path);
+			}
 		}
 	}
 }
