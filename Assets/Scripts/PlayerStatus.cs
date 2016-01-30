@@ -16,6 +16,8 @@ public class PlayerStatus: MonoBehaviour
 
 	public int playerEnergy = 120;
 
+	public int playerVisionRange = 3;
+
 	// Initialize the rune inventory count with 8 runes for the tutorial sake
 	public int[] runeCounts = new int [4] { 2, 2, 2, 2 };
 

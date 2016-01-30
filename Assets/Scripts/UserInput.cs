@@ -9,6 +9,9 @@ public class UserInput : MonoBehaviour {
 
 	public GameObject mainCharacter;
 	private PlayerBehaviour playerBehave;
+
+	private List<Tile> movePath = new List<Tile> ();
+	private int curPathIndex = 0;
 	
 	public TileManager tileManager;
 	public PlayerStatus playerStatus;
@@ -27,6 +30,14 @@ public class UserInput : MonoBehaviour {
 
 		// Move the player, if possible
 		if (playerBehave != null && !playerBehave.isMoving) {
+//			if (curPathIndex < movePath.Count-1) {
+//				
+//				Direction dir = ;
+//
+//				// Start the move animation
+//				playerBehave.MoveDirection (dir);
+//				LoadMapOnWalk ();
+//			} else 
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
 
@@ -45,9 +56,10 @@ public class UserInput : MonoBehaviour {
 				// Start the move animation
 				playerBehave.MoveDirection (dir);
 				LoadMapOnWalk ();
-			} else if (inputMouseButton0) {
-				GetMouseClickPosition ();
 			}
+//			else if (inputMouseButton0) {
+//				GetMouseClickPosition ();
+//			}
 		}
 	}
 
@@ -72,25 +84,22 @@ public class UserInput : MonoBehaviour {
 		mapLoader.LoadMapForWalk ();
 	}
 
-	void GetMouseClickPosition () {
-		// Converting Mouse Pos to 2D (Vector2) World Pos
-		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
-
-		if (hit) {
-			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
-
-			// Convert 3D position into Grid Position
-			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
-			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
-
-			// Pathfinder
-			List<Tile> path = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
-
-			if (path != null) {
-				playerBehave.MoveThroughPath (path);
-			}
-		}
-	}
+//	void GetMouseClickPosition () {
+//		// Converting Mouse Pos to 2D (Vector2) World Pos
+//		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+//		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
+//
+//		if (hit) {
+//			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+//
+//			// Convert 3D position into Grid Position
+//			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
+//			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
+//
+//			// Pathfinder
+//			movePath = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+//			curPathIndex = 0;
+//		}
+//	}
 }
  

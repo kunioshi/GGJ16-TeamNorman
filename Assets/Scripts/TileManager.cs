@@ -92,7 +92,8 @@ public class TileManager : PersistentObject {
 
     private Dictionary<Vector2i, Tile> _tiles;  //Tiles that have been seen.
     public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type
-   
+	
+	public PlayerStatus playerStatus;
 
     //Returns a random tile type based on probabilities (assumes probabilities adds up to 100).
     public Tile.TileType getRandomType()
@@ -192,6 +193,9 @@ public class TileManager : PersistentObject {
     //Returns which tiles are visible in an 11x11 screen where center is the center.
     public List<Tile> getVisibleTiles(Vector2i center)
     {
+		// Create new tiles, if needed
+		createTiles (center, playerStatus.playerVisionRange);
+
         List<Tile> tiles = new List<Tile>();
 
         Vector2i botCorner = center;
@@ -360,7 +364,7 @@ public class TileManager : PersistentObject {
         _tiles = new Dictionary<Vector2i, Tile>();  //Create a new tile dictionary
         Vector2i initialPosition = new Vector2i(0, 0);  //Set initial position
         _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, Random.Range(0, 4), initialPosition));   //Create tile at initial position
-        createTiles(initialPosition, 3);    //Create tiles around initial position. TODO: get view distance
+		createTiles(initialPosition, playerStatus.playerVisionRange);    //Create tiles around initial position.
         Tile.defaultTerrainPenalties[0] = 1;
         Tile.defaultTerrainPenalties[1] = 2;
         Tile.defaultTerrainPenalties[2] = 3;
