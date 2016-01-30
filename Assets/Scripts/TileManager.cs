@@ -292,6 +292,7 @@ public class TileManager : PersistentObject {
                         curNeighbor = new Tile(getRandomType(), neighborPosition);
                         _tiles.Add(neighborPosition, curNeighbor);
                         linkTile(_tiles[neighborPosition]);
+                        curNeighbors.Add(curNeighbor);
                     }
                     else if(!closedTiles.Contains(curNeighbor)) //Else if the neighbor is not a closed tile, add it to cur neighbors (to prevent the code from going in circles).
                     {
