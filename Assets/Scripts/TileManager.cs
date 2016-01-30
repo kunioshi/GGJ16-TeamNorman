@@ -61,15 +61,20 @@ public class Tile
 
     public static int[] defaultTerrainPenalties = new int[(int)TileType.N_TILE_TYPES];
 
+    public bool Traversed { get; set; }
+
+    public int SpriteNumber { get; private set; }   //Which sprite to draw for this tile
+
     public TileType Type { get; private set; }
 
     public Vector2i Position { get; private set; }
 
     public Tile[] neighbors = new Tile[4];
 
-    public Tile(TileType t, Vector2i position)
+    public Tile(TileType t, int spriteNumber, Vector2i position)
     {
         Type = t;
+        SpriteNumber = spriteNumber;
         Position = position;
         neighbors[(int)Direction.Up] = null;
         neighbors[(int)Direction.Down] = null;
@@ -324,7 +329,7 @@ public class TileManager : PersistentObject {
                                 neighborPosition.x += 1;
                                 break;
                         }
-                        curNeighbor = new Tile(getRandomType(), neighborPosition);
+                        curNeighbor = new Tile(getRandomType(), Random.Range(0, 4), neighborPosition);
                         _tiles.Add(neighborPosition, curNeighbor);
                         linkTile(_tiles[neighborPosition]);
                         curNeighbors.Add(curNeighbor);
@@ -354,7 +359,7 @@ public class TileManager : PersistentObject {
     {
         _tiles = new Dictionary<Vector2i, Tile>();  //Create a new tile dictionary
         Vector2i initialPosition = new Vector2i(0, 0);  //Set initial position
-        _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, initialPosition));   //Create tile at initial position
+        _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, Random.Range(0, 4), initialPosition));   //Create tile at initial position
         createTiles(initialPosition, 3);    //Create tiles around initial position. TODO: get view distance
         Tile.defaultTerrainPenalties[0] = 1;
         Tile.defaultTerrainPenalties[1] = 2;
