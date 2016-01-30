@@ -1303,6 +1303,7 @@ GameObject:
   - 114: {fileID: 1052409468}
   - 114: {fileID: 1052409469}
   - 114: {fileID: 1052409470}
+  - 114: {fileID: 1052409471}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1325,7 +1326,12 @@ MonoBehaviour:
   inputVertical: 0
   inputMouseButton0: 0
   mainCharacter: {fileID: 0}
+<<<<<<< HEAD
   tileManager: {fileID: 0}
+=======
+  tileManager: {fileID: 1052409470}
+  playerStatus: {fileID: 1052409469}
+>>>>>>> 7ac2348e830e9b67d58b7f6f294a24c3fdc041a3
 --- !u!4 &1052409467
 Transform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06093464373384a1e901fba1f2b7d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   runeCounts: 02000000020000000200000002000000
+=======
+  playerEnergy: 120
+>>>>>>> 7ac2348e830e9b67d58b7f6f294a24c3fdc041a3
 --- !u!114 &1052409470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,6 +1383,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probabilities: 00000000000000000000000000000000000000000000000000000000
+--- !u!114 &1052409471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052409465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d2a88bf50a546be826e128b7d484ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 1052409469}
+  tileManager: {fileID: 1052409470}
+  plainPrefabs:
+  - {fileID: 128912, guid: 937b89f7cdef34482aef271840cdfe5a, type: 2}
+  forestPrefabs:
+  - {fileID: 182422, guid: ec7b7cde5429e4f61a301b3be41ea9c3, type: 2}
+  mountainPrefabs:
+  - {fileID: 172432, guid: 0e8468138eb3c46b3b71ef5d328b34b2, type: 2}
+  volcanoPrefabs:
+  - {fileID: 153162, guid: e0ba7a874f51b4e2da95cea7db23a6de, type: 2}
 --- !u!1 &1079327684
 GameObject:
   m_ObjectHideFlags: 0

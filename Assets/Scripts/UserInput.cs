@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UserInput : MonoBehaviour {
 	public float inputHorizontal = 0f;
@@ -10,6 +11,7 @@ public class UserInput : MonoBehaviour {
 	private PlayerBehaviour playerBehave;
 	
 	public TileManager tileManager;
+	public PlayerStatus playerStatus;
 
 	// Use this for initialization
 	void Start () {
@@ -26,9 +28,19 @@ public class UserInput : MonoBehaviour {
 		if (playerBehave != null && !playerBehave.isMoving) {
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
+
+				// Update the player's position on the grid
+				playerStatus.playerGridPosition.x += (int)inputHorizontal;
+
+				// Start the move animation
 				playerBehave.MoveDirection (dir);
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
+
+				// Update the player's position on the grid
+				playerStatus.playerGridPosition.y += (int)inputVertical;
+
+				// Start the move animation
 				playerBehave.MoveDirection (dir);
 			} else if (inputMouseButton0) {
 				GetMouseClickPosition ();
@@ -54,14 +66,24 @@ public class UserInput : MonoBehaviour {
 	}
 
 	void GetMouseClickPosition () {
-		//Converting Mouse Pos to 2D (vector2) World Pos
+		// Converting Mouse Pos to 2D (vector2) World Pos
 		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
 
 		if (hit) {
-			int xHitPos = (int)hit.transform.position.x;
-			int yHitPos = (int)hit.transform.position.y;
-			tileManager.getTile ( new Vector2i (xHitPos, yHitPos) );
+			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+
+			// Convert 3D position into Grid Position
+			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
+			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
+
+			// Pathfinder
+//			List<Tile> path = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+
+//			if (path != null) {
+//				playerBehave.MoveThroughPath (path);
+//			}
 		}
 	}
 }
+ 

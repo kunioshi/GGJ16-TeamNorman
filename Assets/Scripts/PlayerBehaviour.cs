@@ -12,6 +12,9 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	public bool isMoving { get { return movementScript.isMoving; } private set {} }
 
+	private List<Tile> pathTiles = new List<Tile> ();
+	private int currentPathIndex = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,12 +22,17 @@ public class PlayerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// If it still have a path to walk, continue the path
+//		if (!isMoving && currentPathIndex++ < pathTiles.Count) {
+//			Vector3 tilePosition = new Vector3 (pathTiles [currentPathIndex].Position.x, pathTiles [currentPathIndex].Position.y);
+//			movementScript.MoveToPosition (tilePosition, moveSpeed);
+//		}
 	}
 
 	public void MoveDirection (Direction dir) {
 		Vector3 moveTo = transform.position;
 
+		// Find out the direction it is moving
 		switch (dir) {
 			case Direction.Up:
 				moveTo.y += moveDistance;
@@ -41,5 +49,9 @@ public class PlayerBehaviour : MonoBehaviour {
 		}
 
 		movementScript.MoveToPosition (moveTo, moveSpeed);
+	}
+
+	public void MoveThroughPath (List<Tile> path) {
+		pathTiles = path;
 	}
 }

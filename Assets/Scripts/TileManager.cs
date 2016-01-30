@@ -61,15 +61,20 @@ public class Tile
 
     public static int[] defaultTerrainPenalties = new int[(int)TileType.N_TILE_TYPES];
 
+    public bool Traversed { get;  set;}
+
+    public int SpriteNumber { get; private set; }   //Which sprite to draw for this tile
+
     public TileType Type { get; private set; }
 
     public Vector2i Position { get; private set; }
 
     public Tile[] neighbors = new Tile[4];
 
-    public Tile(TileType t, Vector2i position)
+    public Tile(TileType t, int spriteNumber, Vector2i position)
     {
         Type = t;
+        SpriteNumber = spriteNumber;
         Position = position;
         neighbors[(int)Direction.Up] = null;
         neighbors[(int)Direction.Down] = null;
@@ -86,14 +91,26 @@ public class Tile
 public class TileManager : PersistentObject {
 
     private Dictionary<Vector2i, Tile> _tiles;  //Tiles that have been seen.
-    public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type (MUST ADD UP TO 100)
+    public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type
    
 
     //Returns a random tile type based on probabilities (assumes probabilities adds up to 100).
     public Tile.TileType getRandomType()
     {
-        int value = (int)(Random.value * 100.0f);
-        int tileMaxValue = 0;
+        float value = Random.value;
+        float tileMaxValue = 0;
+        float divisor = 0;
+        foreach(int val in probabilities)
+        {
+            divisor += val;
+        }
+
+        float[] normalizedProbabilities = new float[(int)Tile.TileType.N_TILE_TYPES];
+
+        for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
+        {
+            normalizedProbabilities[i] = (float)probabilities[i] / divisor;
+        }
 
         for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
         {
@@ -172,6 +189,30 @@ public class TileManager : PersistentObject {
         linkTiles(t, neighborPos, Direction.Left);  //Link neighbor left of this tile
     }
 
+    //Returns which tiles are visible in an 11x11 screen where center is the center.
+    public List<Tile> getVisibleTiles(Vector2i center)
+    {
+        List<Tile> tiles = new List<Tile>();
+
+        Vector2i botCorner = center;
+        botCorner.x -= 5;
+        botCorner.y -= 5;
+
+        for (int x = 0; x < 11; x++, botCorner.x += 1)
+        {
+            for (int y = 0; y < 11; y++, botCorner.y += 1)
+            {
+                if (_tiles.ContainsKey(botCorner))
+                {
+                    tiles.Add(_tiles[botCorner]);
+                }
+            }
+            botCorner.y -= 11;
+        }
+
+        return tiles;
+    }
+
     //Returns the shortest path from start to dest. If the dest can not be reached befor remainingEnergy runs out (or for other reasons), returns null.
     public List<Tile> getPath(Vector2i start, Vector2i dest, int remainingEnergy)
     {
@@ -185,7 +226,6 @@ public class TileManager : PersistentObject {
         Dictionary<Tile, int> distanceFromStart = new Dictionary<Tile, int>();  //Minimum distance from start to each tile.
         Dictionary<Tile, Tile> tileOrigins = new Dictionary<Tile, Tile>();  //Originating tile. (Also acts as a closed list).
         List<Tile> openNodes = new List<Tile>();
-        List<Tile> closedNodes = new List<Tile>();
 
         openNodes.Add(_tiles[start]);
         tileOrigins[_tiles[start]] = _tiles[start];
@@ -193,9 +233,9 @@ public class TileManager : PersistentObject {
 
         Tile curNode, curNeighbor;
         int curDistance;
-
+        bool done = false;
         //While there are still open nodes
-        while(openNodes.Count > 0)
+        while(!done && openNodes.Count > 0)
         {
             //Pop the first node
             curNode = openNodes[0];
@@ -214,12 +254,12 @@ public class TileManager : PersistentObject {
                 curDistance = Tile.terrainPenalty[(int)curNeighbor.Type] + distanceFromStart[curNode];
 
                 //If the neighbor has already been found, if the distance through the cur tile to the neighbor is less than the current known shortest distance, change the neighbor's tile origin and distance.
-                if(tileOrigins.ContainsKey(curNeighbor) && distanceFromStart[curNeighbor] > curDistance)
+                if(tileOrigins.ContainsKey(curNeighbor) && (distanceFromStart[curNeighbor] > curDistance))
                 {
                     tileOrigins[curNeighbor] = curNode;
                     distanceFromStart[curNeighbor] = curDistance;
                 }
-                else if(curDistance <= remainingEnergy) //Else if this is the first time the tile has been found, add it to open nodes and set the tile origins and distance from start.
+                else if(!tileOrigins.ContainsKey(curNeighbor) && curDistance <= remainingEnergy) //Else if this is the first time the tile has been found, add it to open nodes and set the tile origins and distance from start.
                 {
                     tileOrigins[curNeighbor] = curNode;
                     distanceFromStart[curNeighbor] = curDistance;
@@ -239,7 +279,7 @@ public class TileManager : PersistentObject {
         path.Add(curNode);
 
         //Recreate the path.
-        while(curNode != _tiles[start])
+        while(curNode.Position != start)
         {
             curNode = tileOrigins[curNode];
             path.Insert(0, curNode);
@@ -289,7 +329,7 @@ public class TileManager : PersistentObject {
                                 neighborPosition.x += 1;
                                 break;
                         }
-                        curNeighbor = new Tile(getRandomType(), neighborPosition);
+                        curNeighbor = new Tile(getRandomType(), Random.Range(0, 4), neighborPosition);
                         _tiles.Add(neighborPosition, curNeighbor);
                         linkTile(_tiles[neighborPosition]);
                         curNeighbors.Add(curNeighbor);
@@ -319,7 +359,7 @@ public class TileManager : PersistentObject {
     {
         _tiles = new Dictionary<Vector2i, Tile>();  //Create a new tile dictionary
         Vector2i initialPosition = new Vector2i(0, 0);  //Set initial position
-        _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, initialPosition));   //Create tile at initial position
+        _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, Random.Range(0, 4), initialPosition));   //Create tile at initial position
         createTiles(initialPosition, 3);    //Create tiles around initial position. TODO: get view distance
         Tile.defaultTerrainPenalties[0] = 1;
         Tile.defaultTerrainPenalties[1] = 2;
