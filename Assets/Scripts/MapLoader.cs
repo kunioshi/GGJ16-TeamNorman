@@ -22,6 +22,6 @@ public class MapLoader : MonoBehaviour {
 	}
 
 	void PrintInitialMap () {
-
+		tileManager.getVisibleTiles (playerStatus.playerGridPosition);
 	}
 }

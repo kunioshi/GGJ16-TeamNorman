@@ -96,6 +96,7 @@ GameObject:
   - 212: {fileID: 367063289}
   - 114: {fileID: 367063291}
   - 114: {fileID: 367063292}
+  - 95: {fileID: 367063293}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -171,6 +172,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e0ac2619bdc4c3296d528e102ecb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &367063293
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 367063288}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4a27bedab5aba1f45aaea3467b9a0a77, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &806862652
 GameObject:
   m_ObjectHideFlags: 0
