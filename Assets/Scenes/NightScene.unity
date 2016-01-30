@@ -1326,12 +1326,7 @@ MonoBehaviour:
   inputVertical: 0
   inputMouseButton0: 0
   mainCharacter: {fileID: 0}
-<<<<<<< HEAD
   tileManager: {fileID: 0}
-=======
-  tileManager: {fileID: 1052409470}
-  playerStatus: {fileID: 1052409469}
->>>>>>> 7ac2348e830e9b67d58b7f6f294a24c3fdc041a3
 --- !u!4 &1052409467
 Transform:
   m_ObjectHideFlags: 0
@@ -1366,11 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06093464373384a1e901fba1f2b7d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
   runeCounts: 02000000020000000200000002000000
-=======
-  playerEnergy: 120
->>>>>>> 7ac2348e830e9b67d58b7f6f294a24c3fdc041a3
 --- !u!114 &1052409470
 MonoBehaviour:
   m_ObjectHideFlags: 0
