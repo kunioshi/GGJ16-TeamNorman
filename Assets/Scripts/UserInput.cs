@@ -10,11 +10,7 @@ public class UserInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playerBehave = mainCharacter.GetComponent<PlayerBehaviour> ();
-
-		if (playerBehave == null) {
-			Debug.LogError ("No PlayerBehaviour script was found in the 'mainCharacter'.");
-		}
+		
 	}
 	
 	// Update is called once per frame
@@ -29,6 +25,23 @@ public class UserInput : MonoBehaviour {
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
 				playerBehave.MoveDirection (dir);
+			}
+		}
+	}
+
+	void OnLevelWasLoaded (int level) {
+		// When the DayScene is loaded, get the MainCharacter
+		if (level == 1) {
+			mainCharacter = GameObject.Find ("MainCharacter");
+
+			if (mainCharacter == null) {
+				Debug.LogError ("No 'MainCharacter' was found in the scene " + level + ".");
+			} else {
+				playerBehave = mainCharacter.GetComponent<PlayerBehaviour> ();
+
+				if (playerBehave == null) {
+					Debug.LogError ("No PlayerBehaviour script was found in the 'mainCharacter'.");
+				}
 			}
 		}
 	}
