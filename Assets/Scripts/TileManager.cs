@@ -258,7 +258,7 @@ public class TileManager : PersistentObject {
         Tile curNeighbor;
 
         //Only need to run this loop until it reaches as far as it can view.
-        for(int i = 0; i <= viewDistance; i++)
+        for(int i = 0; i < viewDistance; i++)
         {
             //Go through each node and add its neighbor to curNeighbors if it exists, create a neighbhor there if it doesnt.
             foreach(Tile curNode in openTiles)

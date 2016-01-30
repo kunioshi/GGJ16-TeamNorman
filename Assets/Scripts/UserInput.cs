@@ -8,8 +8,8 @@ public class UserInput : MonoBehaviour {
 
 	public GameObject mainCharacter;
 	private PlayerBehaviour playerBehave;
-
-	public Vector3 click;
+	
+	public TileManager tileManager;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +22,7 @@ public class UserInput : MonoBehaviour {
 		inputVertical = Input.GetAxisRaw ("Vertical");
 		inputMouseButton0 = Input.GetMouseButton (0);
 
+		// Move the player, if possible
 		if (playerBehave != null && !playerBehave.isMoving) {
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
@@ -29,11 +30,9 @@ public class UserInput : MonoBehaviour {
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
 				playerBehave.MoveDirection (dir);
+			} else if (inputMouseButton0) {
+				GetMouseClickPosition ();
 			}
-		}
-
-		if (inputMouseButton0 && !playerBehave.isMoving) {
-			GetMouseClickPosition ();
 		}
 	}
 
@@ -60,9 +59,9 @@ public class UserInput : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
 
 		if (hit) {
-			click = hit.transform.position;
-		} else {
-			click = Vector3.one;
+			int xHitPos = (int)hit.transform.position.x;
+			int yHitPos = (int)hit.transform.position.y;
+			tileManager.getTile ( new Vector2i (xHitPos, yHitPos) );
 		}
 	}
 }
