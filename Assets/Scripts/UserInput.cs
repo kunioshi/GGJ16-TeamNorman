@@ -70,10 +70,10 @@ public class UserInput : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
 
 		if (hit) {
-			int xHitPos = (int)hit.transform.position.x;
-			int yHitPos = (int)hit.transform.position.y;
-			tileManager.getTile ( new Vector2i (xHitPos, yHitPos) );
-			// TODO: User A* to find the path and move through it
+			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+
+			playerBehave.MoveThroughPath (tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy));
 		}
 	}
 }
+ 
