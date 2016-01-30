@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21285068}
   - 61: {fileID: 6159858}
   m_Layer: 0
-  m_Name: grass_1
+  m_Name: PlainTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
