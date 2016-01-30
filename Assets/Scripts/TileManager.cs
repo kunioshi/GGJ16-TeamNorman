@@ -172,6 +172,30 @@ public class TileManager : PersistentObject {
         linkTiles(t, neighborPos, Direction.Left);  //Link neighbor left of this tile
     }
 
+    //Returns which tiles are visible in an 11x11 screen where center is the center.
+    public List<Tile> getVisibleTiles(Vector2i center)
+    {
+        List<Tile> tiles = new List<Tile>();
+
+        Vector2i botCorner = center;
+        botCorner.x -= 5;
+        botCorner.y -= 5;
+
+        for (int x = 0; x < 11; x++, botCorner.x += 1)
+        {
+            for (int y = 0; y < 11; y++, botCorner.y += 1)
+            {
+                if (_tiles.ContainsKey(botCorner))
+                {
+                    tiles.Add(_tiles[botCorner]);
+                }
+            }
+            botCorner.y -= 10;
+        }
+
+        return tiles;
+    }
+
     //Returns the shortest path from start to dest. If the dest can not be reached befor remainingEnergy runs out (or for other reasons), returns null.
     public List<Tile> getPath(Vector2i start, Vector2i dest, int remainingEnergy)
     {
@@ -185,7 +209,6 @@ public class TileManager : PersistentObject {
         Dictionary<Tile, int> distanceFromStart = new Dictionary<Tile, int>();  //Minimum distance from start to each tile.
         Dictionary<Tile, Tile> tileOrigins = new Dictionary<Tile, Tile>();  //Originating tile. (Also acts as a closed list).
         List<Tile> openNodes = new List<Tile>();
-        List<Tile> closedNodes = new List<Tile>();
 
         openNodes.Add(_tiles[start]);
         tileOrigins[_tiles[start]] = _tiles[start];
