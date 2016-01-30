@@ -16,12 +16,10 @@ public class MagicCircle : MonoBehaviour
 	public PlayerStatus playerStatus;
 	public Text[] runeCountTexts;
 	AudioSource sfx;
-	int holding;
 	public GameObject topLayer;
 	// Use this for initialization
 	void Start ()
 	{
-		holding = 0;
 		gameController = GameObject.FindGameObjectWithTag ("GameController");
 		playerStatus = gameController.GetComponent<PlayerStatus> ();
 		sfx = GetComponent<AudioSource> ();
@@ -92,6 +90,7 @@ public class MagicCircle : MonoBehaviour
 					//pick up a rune: -1
 					playerStatus.RemoveRuneFromInventory (current.id);
 					sfx.enabled = true;
+					break;
 				}
 			}
 			// click on major slots
@@ -100,6 +99,7 @@ public class MagicCircle : MonoBehaviour
 					current = slots [i].rune;
 					sfx.enabled = true;
 					slots [i].rune = null;
+					break;
 				}
 			}
 
@@ -111,6 +111,7 @@ public class MagicCircle : MonoBehaviour
 					holding++;
 					sfx.enabled = true;
 					minorSlots [i].rune = null;
+					break;
 				}
 			}
 		}
@@ -134,12 +135,12 @@ public class MagicCircle : MonoBehaviour
 							Debug.Log (playerStatus.runeCounts [current.id] + "minor replace");
 
 							Destroy (minorSlots [i].rune.gameObject);
-							//minorSlots [i].rune = null;
 						}
 						minorSlots [i].rune = temp;
 						//	holding--;
 						current.transform.position = runePositions [current.id];
 						current = null;
+						break;
 					}		
 				}
 				//check major slots
@@ -155,6 +156,7 @@ public class MagicCircle : MonoBehaviour
 						slots [i].rune = temp;
 						current.transform.position = runePositions [current.id];
 						current = null;
+						break;
 					}		
 				}
 
