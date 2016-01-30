@@ -29,9 +29,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runeElement: 
+  runeElement: Water
   img: {fileID: 11490784}
-  id: 0
+  id: 3
 --- !u!114 &11490784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,7 +88,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: runeElement
+      value: Water
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 194598}

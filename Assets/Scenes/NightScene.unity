@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 85919680}
+  rune: {fileID: 0}
 --- !u!114 &85919680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +248,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da0862e5a8d7c3f4caafa5f933f13a3f, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &291661811 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11452198, guid: da0862e5a8d7c3f4caafa5f933f13a3f,
+    type: 2}
+  m_PrefabInternal: {fileID: 252444791}
+  m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
 --- !u!224 &316333912 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22473298, guid: 9ac3b09fae6e5d042b22912894bb134f,
@@ -381,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 409955156}
+  rune: {fileID: 0}
 --- !u!114 &409955156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +422,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 409955153}
+--- !u!114 &532795885 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11452198, guid: 850508f14d9ea0d47a3cbf01ab0db8f6,
+    type: 2}
+  m_PrefabInternal: {fileID: 385586997}
+  m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
 --- !u!1 &551111187
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 557463734}
+  rune: {fileID: 0}
 --- !u!114 &557463734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 839783082}
+  rune: {fileID: 0}
 --- !u!114 &839783082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,6 +1025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 882498653}
+  rune: {fileID: 0}
 --- !u!114 &882498653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1154,6 +1171,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1012142675 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11452198, guid: 9ac3b09fae6e5d042b22912894bb134f,
+    type: 2}
+  m_PrefabInternal: {fileID: 2027625584}
+  m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
 --- !u!1 &1051563787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1051563790}
+  rune: {fileID: 0}
 --- !u!114 &1051563790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,6 +1371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1079327687}
+  rune: {fileID: 0}
 --- !u!114 &1079327687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1534,6 +1559,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a90d7dad82dc3d45aecd89bc835435b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runeList:
+  - {fileID: 532795885}
+  - {fileID: 1979527185}
+  - {fileID: 1012142675}
+  - {fileID: 291661811}
   slots:
   - {fileID: 2001461920}
   - {fileID: 1957732416}
@@ -1599,6 +1629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1188606997}
+  rune: {fileID: 0}
 --- !u!114 &1188606997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,6 +1853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1358994428}
+  rune: {fileID: 0}
 --- !u!114 &1358994428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2261,6 +2293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1439301076}
+  rune: {fileID: 0}
 --- !u!114 &1439301076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1464799236}
+  rune: {fileID: 0}
 --- !u!114 &1464799236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2562,6 +2596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1550184048}
+  rune: {fileID: 0}
 --- !u!114 &1550184048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2682,6 +2717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1769480123}
+  rune: {fileID: 0}
 --- !u!114 &1769480123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2762,6 +2798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1957732417}
+  rune: {fileID: 0}
 --- !u!114 &1957732417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,6 +2832,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1957732414}
+--- !u!114 &1979527185 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11452198, guid: 06a7c300ce368de42b3af7dd4d4b17f2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1422125607}
+  m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
 --- !u!1 &2001461918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2842,6 +2885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 2001461921}
+  rune: {fileID: 0}
 --- !u!114 &2001461921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3082,6 +3126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 2087991563}
+  rune: {fileID: 0}
 --- !u!114 &2087991563
 MonoBehaviour:
   m_ObjectHideFlags: 0
