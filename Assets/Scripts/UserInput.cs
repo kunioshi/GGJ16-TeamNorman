@@ -66,16 +66,19 @@ public class UserInput : MonoBehaviour {
 	}
 
 	void GetMouseClickPosition () {
-		//Converting Mouse Pos to 2D (vector2) World Pos
+		// Converting Mouse Pos to 2D (vector2) World Pos
 		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
 
 		if (hit) {
 			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+
+			// Convert 3D position into Grid Position
 			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
 			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 
-//			tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+			// Pathfinder
+//			List<Tile> path = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
 
 //			if (path != null) {
 //				playerBehave.MoveThroughPath (path);
