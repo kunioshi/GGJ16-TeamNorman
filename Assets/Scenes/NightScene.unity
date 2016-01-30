@@ -590,7 +590,7 @@ GameObject:
   - 222: {fileID: 656478725}
   - 114: {fileID: 656478724}
   m_Layer: 5
-  m_Name: Text
+  m_Name: WaterText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -739,6 +739,7 @@ RectTransform:
   m_Children:
   - {fileID: 926298194}
   - {fileID: 2090187126}
+  - {fileID: 904598251}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
@@ -916,7 +917,7 @@ GameObject:
   - 222: {fileID: 849105558}
   - 114: {fileID: 849105557}
   m_Layer: 5
-  m_Name: ItemCount
+  m_Name: AirRuneCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -971,7 +972,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x12
+  m_Text: x2
 --- !u!222 &849105558
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1059,6 +1060,38 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 882498650}
+--- !u!1 &904598250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 904598251}
+  m_Layer: 5
+  m_Name: TopLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &904598251
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 904598250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 668502690}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &926298193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1325,7 @@ MonoBehaviour:
   inputVertical: 0
   inputMouseButton0: 0
   mainCharacter: {fileID: 0}
-  click: {x: 0, y: 0, z: 0}
+  tileManager: {fileID: 0}
 --- !u!4 &1052409467
 Transform:
   m_ObjectHideFlags: 0
@@ -1327,6 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06093464373384a1e901fba1f2b7d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runeCounts: 02000000020000000200000002000000
 --- !u!114 &1052409470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1431,7 +1465,7 @@ GameObject:
   - 222: {fileID: 1081959907}
   - 114: {fileID: 1081959906}
   m_Layer: 5
-  m_Name: ItemCount
+  m_Name: FireRuneCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,7 +1520,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 12x
+  m_Text: 2x
 --- !u!222 &1081959907
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1672,6 +1706,14 @@ MonoBehaviour:
   - {fileID: 409955155}
   - {fileID: 1079327686}
   - {fileID: 839783081}
+  gameController: {fileID: 0}
+  playerStatus: {fileID: 0}
+  runeCountTexts:
+  - {fileID: 849105557}
+  - {fileID: 2063566811}
+  - {fileID: 1081959906}
+  - {fileID: 1308081170}
+  topLayer: {fileID: 904598250}
 --- !u!1 &1188606994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,7 +1806,7 @@ GameObject:
   - 222: {fileID: 1308081171}
   - 114: {fileID: 1308081170}
   m_Layer: 5
-  m_Name: ItemCount
+  m_Name: WaterRuneCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1819,7 +1861,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x12
+  m_Text: x2
 --- !u!222 &1308081171
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2058,7 +2100,7 @@ GameObject:
   - 222: {fileID: 1366714963}
   - 114: {fileID: 1366714962}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FireText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2131,7 +2173,7 @@ GameObject:
   - 222: {fileID: 1411719208}
   - 114: {fileID: 1411719207}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AirText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2428,7 +2470,7 @@ GameObject:
   - 222: {fileID: 1444563778}
   - 114: {fileID: 1444563777}
   m_Layer: 5
-  m_Name: Text
+  m_Name: EarthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3107,7 +3149,7 @@ GameObject:
   - 222: {fileID: 2063566812}
   - 114: {fileID: 2063566811}
   m_Layer: 5
-  m_Name: ItemCount
+  m_Name: EarthRuneCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3162,7 +3204,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 12x
+  m_Text: 2x
 --- !u!222 &2063566812
 CanvasRenderer:
   m_ObjectHideFlags: 0

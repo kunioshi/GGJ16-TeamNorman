@@ -12,14 +12,23 @@ public class MagicCircle : MonoBehaviour
 	private Rune current;
 	public RuneSlot[] slots;
 	public RuneSlot[] minorSlots;
+	public GameObject gameController;
+	public PlayerStatus playerStatus;
+	public Text[] runeCountTexts;
 	AudioSource sfx;
+	int holding;
+	public GameObject topLayer;
 	// Use this for initialization
 	void Start ()
 	{
+		holding = 0;
+		gameController = GameObject.FindGameObjectWithTag ("GameController");
+		playerStatus = gameController.GetComponent<PlayerStatus> ();
 		sfx = GetComponent<AudioSource> ();
 		sfx.enabled = false;
 		for (int i = 0; i < runeList.Length; i++) {
 			runePositions [i] = runeList [i].transform.position;
+			setRuneCountText (i);
 		}
 		RectTransform rectTrans = gameObject.GetComponent<RectTransform> ();
 		edgeLength = rectTrans.rect.height * 0.425f;
@@ -76,16 +85,39 @@ public class MagicCircle : MonoBehaviour
 
 		//put in new rune
 		if (Input.GetMouseButtonDown (0)) {
+			//click on inventory
 			for (int i = 0; i < 4; i++) {
-				//Debug.Log("Distance :")
-				if (isNear (runeList [i].transform.position, Input.mousePosition)) {
+				if (isNear (runeList [i].transform.position, Input.mousePosition) && playerStatus.runeCounts [i] > 0) {
 					current = runeList [i];
+					//pick up a rune: -1
+					playerStatus.RemoveRuneFromInventory (current.id);
 					sfx.enabled = true;
+				}
+			}
+			// click on major slots
+			for (int i = 0; i < 8; i++) {
+				if (isNear (slots [i], Input.mousePosition) && slots [i].rune != null) {
+					current = slots [i].rune;
+					sfx.enabled = true;
+					slots [i].rune = null;
+				}
+			}
+
+			// click on minor slots
+			for (int i = 0; i < 8; i++) {
+				//Debug.Log("Distance :")
+				if (isNear (minorSlots [i], Input.mousePosition) && minorSlots [i].rune != null) {
+					current = minorSlots [i].rune;
+					holding++;
+					sfx.enabled = true;
+					minorSlots [i].rune = null;
 				}
 			}
 		}
 
 		if (Input.GetMouseButton (0) && current != null) {
+			//make sure the rune is always on top, use water symbol since it's the last element on canvas
+			current.img.transform.SetParent (topLayer.transform);
 			current.transform.position = Input.mousePosition;
 		}
 
@@ -98,9 +130,16 @@ public class MagicCircle : MonoBehaviour
 						Rune temp = (Rune)Instantiate (current, minorSlots [i].transform.position, Quaternion.identity);
 						temp.transform.SetParent (minorSlots [i].transform);
 						if (minorSlots [i].rune != null) {
+							playerStatus.AddRuneToInventory (minorSlots [i].rune.id);
+							Debug.Log (playerStatus.runeCounts [current.id] + "minor replace");
+
 							Destroy (minorSlots [i].rune.gameObject);
+							//minorSlots [i].rune = null;
 						}
 						minorSlots [i].rune = temp;
+						//	holding--;
+						current.transform.position = runePositions [current.id];
+						current = null;
 					}		
 				}
 				//check major slots
@@ -109,16 +148,31 @@ public class MagicCircle : MonoBehaviour
 						Rune temp = (Rune)Instantiate (current, slots [i].transform.position, Quaternion.identity);
 						temp.transform.SetParent (slots [i].transform);
 						if (slots [i].rune != null) {
+							//move the rune on the magical circle back to inventory
+							playerStatus.AddRuneToInventory (slots [i].rune.id);
 							Destroy (slots [i].rune.gameObject);
 						}
 						slots [i].rune = temp;
+						current.transform.position = runePositions [current.id];
+						current = null;
 					}		
 				}
 
+
+
+			}
+			//release rune from hand will always increase the inventory, no matter where it goes, handle the drop on circle somewhere else
+			if (current != null) {
+				playerStatus.AddRuneToInventory (current.id);
 				current.transform.position = runePositions [current.id];
+				Debug.Log (playerStatus.runeCounts [current.id] + "free");
+				current = null;
+//				holding = 0;
 			}
 
-			current = null;
+			for (int i = 0; i < 4; i++) {
+				setRuneCountText (i);
+			}
 		}
 
 	}
@@ -133,5 +187,14 @@ public class MagicCircle : MonoBehaviour
 	public bool isNear (Vector3 position0, Vector3 position)
 	{
 		return (position0 - position).magnitude < 20;
+	}
+
+	void setRuneCountText (int id)
+	{
+		if (id == 1 || id == 4) {//case for the left hand side texts
+			runeCountTexts [id].text = playerStatus.runeCounts [id] + "x";
+		} else {//case for the right hand side texts
+			runeCountTexts [id].text = "x" + playerStatus.runeCounts [id];
+		}
 	}
 }
