@@ -10,6 +10,7 @@ public class UserInput : MonoBehaviour {
 	private PlayerBehaviour playerBehave;
 	
 	public TileManager tileManager;
+	public PlayerStatus playerStatus;
 
 	// Use this for initialization
 	void Start () {
@@ -26,9 +27,19 @@ public class UserInput : MonoBehaviour {
 		if (playerBehave != null && !playerBehave.isMoving) {
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
+
+				// Update the player's position on the grid
+				playerStatus.playerGridPosition.x += (int)inputHorizontal;
+
+				// Start the move animation
 				playerBehave.MoveDirection (dir);
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
+
+				// Update the player's position on the grid
+				playerStatus.playerGridPosition.y += (int)inputVertical;
+
+				// Start the move animation
 				playerBehave.MoveDirection (dir);
 			} else if (inputMouseButton0) {
 				GetMouseClickPosition ();
@@ -62,6 +73,7 @@ public class UserInput : MonoBehaviour {
 			int xHitPos = (int)hit.transform.position.x;
 			int yHitPos = (int)hit.transform.position.y;
 			tileManager.getTile ( new Vector2i (xHitPos, yHitPos) );
+			// TODO: User A* to find the path and move through it
 		}
 	}
 }

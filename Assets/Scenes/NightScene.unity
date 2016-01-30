@@ -1270,6 +1270,7 @@ GameObject:
   - 114: {fileID: 1052409468}
   - 114: {fileID: 1052409469}
   - 114: {fileID: 1052409470}
+  - 114: {fileID: 1052409471}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1292,7 +1293,8 @@ MonoBehaviour:
   inputVertical: 0
   inputMouseButton0: 0
   mainCharacter: {fileID: 0}
-  click: {x: 0, y: 0, z: 0}
+  tileManager: {fileID: 1052409470}
+  playerStatus: {fileID: 1052409469}
 --- !u!4 &1052409467
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,6 +1341,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probabilities: 00000000000000000000000000000000000000000000000000000000
+--- !u!114 &1052409471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052409465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d2a88bf50a546be826e128b7d484ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 1052409469}
+  tileManager: {fileID: 1052409470}
 --- !u!1 &1079327684
 GameObject:
   m_ObjectHideFlags: 0
