@@ -36,6 +36,11 @@ public struct Vector2i
     {
         return x.GetHashCode() ^ y.GetHashCode();
     }
+
+    public override string ToString()
+    {
+        return x.ToString() + " " + y.ToString();
+    }
 }
 
 public class Tile
@@ -70,6 +75,11 @@ public class Tile
         neighbors[(int)Direction.Down] = null;
         neighbors[(int)Direction.Left] = null;
         neighbors[(int)Direction.Right] = null;
+    }
+
+    public override string ToString()
+    {
+        return "Type: " + Type.ToString() + " Position: " + Position.ToString();
     }
 }
 
@@ -248,7 +258,7 @@ public class TileManager : PersistentObject {
         Tile curNeighbor;
 
         //Only need to run this loop until it reaches as far as it can view.
-        for(int i = 0; i < viewDistance; i++)
+        for(int i = 0; i <= viewDistance; i++)
         {
             //Go through each node and add its neighbor to curNeighbors if it exists, create a neighbhor there if it doesnt.
             foreach(Tile curNode in openTiles)
@@ -317,6 +327,10 @@ public class TileManager : PersistentObject {
         Tile.defaultTerrainPenalties[5] = 2;
         Tile.defaultTerrainPenalties[6] = 4;
         resetTerrainPenalties();
+        foreach(Tile t in _tiles.Values)
+        {
+            Debug.Log(t.ToString());
+        }
     }
 
 	// Use this for initialization
