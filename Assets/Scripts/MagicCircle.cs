@@ -108,8 +108,7 @@ public class MagicCircle : MonoBehaviour
 				//Debug.Log("Distance :")
 				if (isNear (minorSlots [i], Input.mousePosition) && minorSlots [i].rune != null) {
 					current = minorSlots [i].rune;
-					holding++;
-					sfx.enabled = true;
+//					sfx.enabled = true;
 					minorSlots [i].rune = null;
 					break;
 				}
@@ -198,5 +197,34 @@ public class MagicCircle : MonoBehaviour
 		} else {//case for the right hand side texts
 			runeCountTexts [id].text = "x" + playerStatus.runeCounts [id];
 		}
+	}
+	//helper function
+	//please only use this function for major rune slot
+	int bothConnect (int i)
+	{
+		if (slots [i].rune == null) {
+			return -1;
+		}
+		//adjacent minor rune slot
+		int j, k;
+		//handling null cases
+		if (i < 7) {
+			j = i + 1;
+		} else
+			j = 0;
+
+		if (i > 0) {
+			k = i + 1;
+		} else
+			k = 7;
+		if (minorSlots [j].rune == null || minorSlots [k].rune == null) {//
+			return -1;
+		}
+
+		//check triangle
+		if (slots [i].rune.id == minorSlots [j].rune.id && slots [i].rune.id == minorSlots [k].rune.id) {
+			return slots [i].rune.id;
+		}
+		return -1;
 	}
 }
