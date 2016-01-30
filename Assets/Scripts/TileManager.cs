@@ -61,7 +61,7 @@ public class Tile
 
     public static int[] defaultTerrainPenalties = new int[(int)TileType.N_TILE_TYPES];
 
-    public bool Traversed { get; set; }
+    public bool Traversed { get;  set;}
 
     public int SpriteNumber { get; private set; }   //Which sprite to draw for this tile
 
@@ -233,9 +233,9 @@ public class TileManager : PersistentObject {
 
         Tile curNode, curNeighbor;
         int curDistance;
-
+        bool done = false;
         //While there are still open nodes
-        while(openNodes.Count > 0)
+        while(!done && openNodes.Count > 0)
         {
             //Pop the first node
             curNode = openNodes[0];
@@ -266,6 +266,10 @@ public class TileManager : PersistentObject {
                     openNodes.Add(curNeighbor);
                 }
                 //If the neighbor can not physically be reached, do not add it to open nodes.
+                if(curNeighbor.Position == dest)
+                {
+                    done = true;
+                }
             }
         }
 
