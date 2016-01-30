@@ -812,7 +812,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Temp Button - Change Level
 --- !u!222 &720397939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1269,6 +1269,7 @@ GameObject:
   - 114: {fileID: 1052409466}
   - 114: {fileID: 1052409468}
   - 114: {fileID: 1052409469}
+  - 114: {fileID: 1052409470}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1289,6 +1290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHorizontal: 0
   inputVertical: 0
+  inputMouseButton0: 0
   mainCharacter: {fileID: 0}
 --- !u!4 &1052409467
 Transform:
@@ -1324,6 +1326,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06093464373384a1e901fba1f2b7d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1052409470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052409465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ab7f772c94fa04783ff6bacdd8faff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probabilities: 00000000000000000000000000000000000000000000000000000000
 --- !u!1 &1079327684
 GameObject:
   m_ObjectHideFlags: 0
