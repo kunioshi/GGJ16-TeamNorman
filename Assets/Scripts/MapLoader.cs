@@ -44,7 +44,6 @@ public class MapLoader : MonoBehaviour {
 		List<Tile> newVisibleTiles = tileManager.getVisibleTiles (playerStatus.playerGridPosition);
 
 		foreach (Tile tile in newVisibleTiles) {
-			
 			if (!CheckLoadedTile (tile)) {
 				CreateGridTile (tile);
 
@@ -56,7 +55,6 @@ public class MapLoader : MonoBehaviour {
 	bool CheckLoadedTile (Tile tile) {
 		foreach (Tile t in loadedTiles) {
 			if (t.Position == tile.Position) {
-				Debug.Log ((t.Position == tile.Position) + " : " + t.Position.x + "," + t.Position.y + " / " + tile.Position.x + "," + tile.Position.y);
 				return true;
 			}
 		}
