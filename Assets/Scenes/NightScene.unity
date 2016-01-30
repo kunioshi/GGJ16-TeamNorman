@@ -1471,6 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerEnergy: 120
+  playerVisionRange: 3
   runeCounts: 02000000020000000200000002000000
 --- !u!114 &1052409470
 MonoBehaviour:
@@ -1484,6 +1485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probabilities: 00000000000000000000000000000000000000000000000000000000
+  playerStatus: {fileID: 1052409469}
 --- !u!114 &1052409471
 MonoBehaviour:
   m_ObjectHideFlags: 0
