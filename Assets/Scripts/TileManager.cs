@@ -254,22 +254,18 @@ public class TileManager : PersistentObject {
                 curDistance = Tile.terrainPenalty[(int)curNeighbor.Type] + distanceFromStart[curNode];
 
                 //If the neighbor has already been found, if the distance through the cur tile to the neighbor is less than the current known shortest distance, change the neighbor's tile origin and distance.
-                if(tileOrigins.ContainsKey(curNeighbor) && distanceFromStart[curNeighbor] > curDistance)
+                if(tileOrigins.ContainsKey(curNeighbor) && (distanceFromStart[curNeighbor] > curDistance))
                 {
                     tileOrigins[curNeighbor] = curNode;
                     distanceFromStart[curNeighbor] = curDistance;
                 }
-                else if(curDistance <= remainingEnergy) //Else if this is the first time the tile has been found, add it to open nodes and set the tile origins and distance from start.
+                else if(!tileOrigins.ContainsKey(curNeighbor) && curDistance <= remainingEnergy) //Else if this is the first time the tile has been found, add it to open nodes and set the tile origins and distance from start.
                 {
                     tileOrigins[curNeighbor] = curNode;
                     distanceFromStart[curNeighbor] = curDistance;
                     openNodes.Add(curNeighbor);
                 }
                 //If the neighbor can not physically be reached, do not add it to open nodes.
-                if(curNeighbor.Position == dest)
-                {
-                    done = true;
-                }
             }
         }
 
@@ -283,7 +279,7 @@ public class TileManager : PersistentObject {
         path.Add(curNode);
 
         //Recreate the path.
-        while(curNode != _tiles[start])
+        while(curNode.Position != start)
         {
             curNode = tileOrigins[curNode];
             path.Insert(0, curNode);
