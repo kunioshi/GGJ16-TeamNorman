@@ -86,14 +86,26 @@ public class Tile
 public class TileManager : PersistentObject {
 
     private Dictionary<Vector2i, Tile> _tiles;  //Tiles that have been seen.
-    public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type (MUST ADD UP TO 100)
+    public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type
    
 
     //Returns a random tile type based on probabilities (assumes probabilities adds up to 100).
     public Tile.TileType getRandomType()
     {
-        int value = (int)(Random.value * 100.0f);
-        int tileMaxValue = 0;
+        float value = Random.value;
+        float tileMaxValue = 0;
+        float divisor = 0;
+        foreach(int val in probabilities)
+        {
+            divisor += val;
+        }
+
+        float[] normalizedProbabilities = new float[(int)Tile.TileType.N_TILE_TYPES];
+
+        for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
+        {
+            normalizedProbabilities[i] = (float)probabilities[i] / divisor;
+        }
 
         for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
         {
@@ -190,7 +202,7 @@ public class TileManager : PersistentObject {
                     tiles.Add(_tiles[botCorner]);
                 }
             }
-            botCorner.y -= 10;
+            botCorner.y -= 11;
         }
 
         return tiles;
