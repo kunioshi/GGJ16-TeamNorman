@@ -303,9 +303,10 @@ public class TileManager : PersistentObject {
 
             //Reassign closed and open tiles.
             closedTiles.Clear();
-            closedTiles = openTiles;
+            closedTiles = new HashSet<Tile>(openTiles);
             openTiles.Clear();
-            openTiles = curNeighbors;
+            openTiles = new HashSet<Tile>(curNeighbors);
+            curNeighbors.Clear();
         }
     }
 
