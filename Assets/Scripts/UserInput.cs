@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UserInput : MonoBehaviour {
 	public float inputHorizontal = 0f;
@@ -71,8 +72,14 @@ public class UserInput : MonoBehaviour {
 
 		if (hit) {
 			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
+			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
 
-			playerBehave.MoveThroughPath (tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy));
+//			tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+
+//			if (path != null) {
+//				playerBehave.MoveThroughPath (path);
+//			}
 		}
 	}
 }

@@ -23,10 +23,10 @@ public class PlayerBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// If it still have a path to walk, continue the path
-		if (!isMoving && currentPathIndex++ < pathTiles.Count) {
-			Vector3 tilePosition = new Vector3 (pathTiles[currentPathIndex].Position.x, pathTiles[currentPathIndex].Position.y);
-			movementScript.MoveToPosition (tilePosition, moveSpeed);
-		}
+//		if (!isMoving && currentPathIndex++ < pathTiles.Count) {
+//			Vector3 tilePosition = new Vector3 (pathTiles [currentPathIndex].Position.x, pathTiles [currentPathIndex].Position.y);
+//			movementScript.MoveToPosition (tilePosition, moveSpeed);
+//		}
 	}
 
 	public void MoveDirection (Direction dir) {
