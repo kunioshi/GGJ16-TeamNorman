@@ -17,14 +17,24 @@ public class DemoButton : MonoBehaviour
 	
 	}
 
-	public void ChangeScene ()
+	public void ChangeScene (int levelIndex)
 	{
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (levelIndex);
 	}
 
     public void ToMenu()
     {
 		Destroy (GameObject.Find ("GameController"));
         SceneManager.LoadScene("MainMenuScene");
-    }
+	}
+
+	public void ToNight()
+	{
+		SceneManager.LoadScene("NightScene");
+	}
+
+	public void ToDay()
+	{
+		SceneManager.LoadScene("DayScene");
+	}
 }
