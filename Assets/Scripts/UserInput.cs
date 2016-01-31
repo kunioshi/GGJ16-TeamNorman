@@ -26,17 +26,43 @@ public class UserInput : MonoBehaviour {
 	void Update () {
 		inputHorizontal = Input.GetAxisRaw ("Horizontal");
 		inputVertical = Input.GetAxisRaw ("Vertical");
-		inputMouseButton0 = Input.GetMouseButton (0);
+//		inputMouseButton0 = Input.GetMouseButton (0);
 
 		// Move the player, if possible
 		if (playerBehave != null && !playerBehave.isMoving) {
-//			if (curPathIndex < movePath.Count-1) {
-//				
-//				Direction dir = ;
+//			if (curPathIndex < movePath.Count) {
+//				Direction dir;
+//				Vector2i pathTile = movePath [curPathIndex].Position;
 //
-//				// Start the move animation
-//				playerBehave.MoveDirection (dir);
-//				LoadMapOnWalk ();
+//				if (pathTile != playerStatus.playerGridPosition) {
+//					if (pathTile.x != playerStatus.playerGridPosition.x) {
+//						dir = pathTile.x > playerStatus.playerGridPosition.x ? Direction.Right : Direction.Left;
+//					} else {
+//						dir = pathTile.y > playerStatus.playerGridPosition.y ? Direction.Up : Direction.Down;
+//					}
+//
+//					// TODO: Refactor to change the other movements too
+//					switch (dir) {
+//					case Direction.Right:
+//						playerStatus.playerGridPosition.x += 1;
+//						break;
+//					case Direction.Left:
+//						playerStatus.playerGridPosition.x -= 1;
+//						break;
+//					case Direction.Up:
+//						playerStatus.playerGridPosition.y += 1;
+//						break;
+//					case Direction.Down:
+//						playerStatus.playerGridPosition.y -= 1;
+//						break;
+//					}
+//
+//					// Start the move animation
+//					playerBehave.MoveDirection (dir);
+//					LoadMapOnWalk ();
+//				}
+//
+//				curPathIndex++;
 //			} else 
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
