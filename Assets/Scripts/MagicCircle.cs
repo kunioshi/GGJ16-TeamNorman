@@ -105,6 +105,7 @@ public class MagicCircle : MonoBehaviour
 			for (int i = 0; i < 4; i++) {
 				if (isNear (runeList [i].transform.position, Input.mousePosition) && playerStatus.runeCounts [i] > 0) {
 					current = runeList [i];
+					runeList [i] = null;
 					//pick up a rune: -1
 					playerStatus.RemoveRuneFromInventory (current.id);
 					break;
@@ -146,17 +147,25 @@ public class MagicCircle : MonoBehaviour
 				//check minor slots
 				for (int i = 0; i < 8; i++) {
 					if (isNear (minorSlots [i], Input.mousePosition)) {
-						Rune temp = (Rune)Instantiate (current, minorSlots [i].transform.position, Quaternion.identity);
-						temp.transform.SetParent (minorSlots [i].transform);
+//						Rune temp = (Rune)Instantiate (current, minorSlots [i].transform.position, Quaternion.identity);
+//						temp.transform.SetParent (minorSlots [i].transform);
+						current.transform.SetParent (minorSlots [i].transform);
 						if (minorSlots [i].rune != null) {
 							playerStatus.AddRuneToInventory (minorSlots [i].rune.id);
+							runeList [minorSlots [i].rune.id] = minorSlots [i].rune;
+							runeList [minorSlots [i].rune.id].transform.position = runePositions [minorSlots [i].rune.id];
 							Debug.Log (playerStatus.runeCounts [current.id] + "minor replace");
 
-							Destroy (minorSlots [i].rune.gameObject);
+							runeList [minorSlots [i].rune.id] = minorSlots [i].rune;
+							runeList [minorSlots [i].rune.id].transform.position = runePositions [minorSlots [i].rune.id];
 						}
-						minorSlots [i].rune = temp;
+						minorSlots [i].rune = current;
 						//	holding--;
-						current.transform.position = runePositions [current.id];
+						if (playerStatus.runeCounts [current.id] > 0) {
+							runeList [current.id] = (Rune)Instantiate (current, minorSlots [i].transform.position, current.transform.rotation);
+							runeList [current.id].transform.position = runePositions [current.id];
+						}
+						//						current.transform.position = runePositions [current.id];
 						current = null;
 						break;
 					}		
@@ -164,15 +173,31 @@ public class MagicCircle : MonoBehaviour
 				//check major slots
 				for (int i = 0; i < 8; i++) {
 					if (isNear (slots [i], Input.mousePosition)) {
-						Rune temp = (Rune)Instantiate (current, slots [i].transform.position, Quaternion.identity);
-						temp.transform.SetParent (slots [i].transform);
+//						Rune temp = (Rune)Instantiate (current, slots [i].transform.position, Quaternion.identity);
+						//					temp.transform.SetParent (slots [i].transform);
+						current.transform.SetParent (slots [i].transform);
 						if (slots [i].rune != null) {
 							//move the rune on the magical circle back to inventory
 							playerStatus.AddRuneToInventory (slots [i].rune.id);
-							Destroy (slots [i].rune.gameObject);
+							runeList [slots [i].rune.id] = slots [i].rune;
+							runeList [slots [i].rune.id].transform.position = runePositions [slots [i].rune.id];
+
 						}
-						slots [i].rune = temp;
-						current.transform.position = runePositions [current.id];
+						slots [i].rune = current;
+						if (playerStatus.runeCounts [current.id] > 0) {
+							runeList [current.id] = (Rune)Instantiate (current, slots [i].transform.position, current.transform.rotation);
+							runeList [current.id].transform.SetParent (runeList [current.id].transform);
+						}
+
+						if (playerStatus.runeCounts [current.id] > 0) {
+							runeList [current.id] = (Rune)Instantiate (current, slots [i].transform.position, current.transform.rotation);
+							runeList [current.id].transform.position = runePositions [current.id];
+						}
+//					current.transform.position = runePositions [current.id];
+						if (playerStatus.runeCounts [current.id] > 0) {
+							runeList [current.id] = (Rune)Instantiate (current, minorSlots [i].transform.position, current.transform.rotation);
+							runeList [current.id].transform.position = runePositions [current.id];
+						}
 						current = null;
 						break;
 					}		
@@ -185,6 +210,7 @@ public class MagicCircle : MonoBehaviour
 			if (current != null) {
 				playerStatus.AddRuneToInventory (current.id);
 				current.transform.position = runePositions [current.id];
+				runeList [current.id] = current;
 				current = null;
 			}
 
