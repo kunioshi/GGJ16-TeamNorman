@@ -165,7 +165,7 @@ public class MagicCircle : MonoBehaviour
 
 
 						minorSlots [i].rune = current;
-						minorSlots [i].transform.position = minorSlots [i].transform.position;
+						minorSlots [i].rune.transform.position = minorSlots [i].transform.position;
 						//	holding--;
 
 						//						current.transform.position = runePositions [current.id];
@@ -192,15 +192,7 @@ public class MagicCircle : MonoBehaviour
 							runeList [current.id].transform.SetParent (runeListSlots [current.id].transform);
 						}
 						slots [i].rune = current;
-						if (playerStatus.runeCounts [current.id] > 0) {
-							runeList [current.id] = (Rune)Instantiate (current, slots [i].transform.position, current.transform.rotation);
-							runeList [current.id].transform.SetParent (runeList [current.id].transform);
-						}
-
-						if (playerStatus.runeCounts [current.id] > 0) {
-							runeList [current.id] = (Rune)Instantiate (current, slots [i].transform.position, current.transform.rotation);
-							runeList [current.id].transform.position = runePositions [current.id];
-						}
+						slots [i].rune.transform.position = slots [i].transform.position;
 //					current.transform.position = runePositions [current.id];
 
 						current = null;
