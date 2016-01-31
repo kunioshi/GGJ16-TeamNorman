@@ -370,11 +370,11 @@ public class TileManager : PersistentObject {
         Vector2i initialPosition = new Vector2i(0, 0);  //Set initial position
         _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, Random.Range(0, 4), initialPosition));   //Create tile at initial position
 		createTiles(initialPosition, playerStatus.playerVisionRange);    //Create tiles around initial position.
-        Tile.defaultTerrainPenalties[0] = 1;
-        Tile.defaultTerrainPenalties[1] = 2;
-        Tile.defaultTerrainPenalties[2] = 3;
-        Tile.defaultTerrainPenalties[3] = 2;
-        Tile.defaultTerrainPenalties[4] = 2;
+		Tile.defaultTerrainPenalties[(int)Tile.TileType.Plains] = 1;
+		Tile.defaultTerrainPenalties[(int)Tile.TileType.Mountain] = 2;
+		Tile.defaultTerrainPenalties[(int)Tile.TileType.Cave] = 3;
+		Tile.defaultTerrainPenalties[(int)Tile.TileType.Graveyard] = 5;
+		Tile.defaultTerrainPenalties[(int)Tile.TileType.Volcano] = 6;
 
         resetTerrainPenalties();
 
