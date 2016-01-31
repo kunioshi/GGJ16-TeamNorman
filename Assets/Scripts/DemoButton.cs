@@ -51,8 +51,6 @@ public class DemoButton : MonoBehaviour
 			tileManager.probabilities [0] += 1;
 			Debug.Log (tileManager.probabilities [0]);
 			SceneManager.LoadScene ("DayScene");
-		} else {
-			SceneManager.LoadScene ("GameOver");
 		}
 
 	}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,7 +26,12 @@ public class MapLoader : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded (int level) {
-		if (level == 1) {
+		if (level == SceneManager.GetSceneByName("DayScene").buildIndex) {
+			if (playerStatus.playerEnergy == 0) {
+				SceneManager.LoadScene ("GameOver");
+				return;
+			}
+
 			PrintInitialMap ();
 
 			Vector3 tileSize = plainPrefabs [0].GetComponent<SpriteRenderer> ().bounds.size;

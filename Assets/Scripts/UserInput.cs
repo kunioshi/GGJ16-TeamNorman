@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -93,7 +94,7 @@ public class UserInput : MonoBehaviour {
 
 	void OnLevelWasLoaded (int level) {
 		// When the DayScene(1) is loaded, get the MainCharacter
-		if (level == 1) {
+		if (level == SceneManager.GetSceneByName("DayScene").buildIndex) {
 			mainCharacter = GameObject.Find ("MainCharacter");
 
 			if (mainCharacter == null) {
