@@ -166,9 +166,7 @@ public class MagicCircle : MonoBehaviour
 			if (current != null) {
 				playerStatus.AddRuneToInventory (current.id);
 				current.transform.position = runePositions [current.id];
-				Debug.Log (playerStatus.runeCounts [current.id] + "free");
 				current = null;
-//				holding = 0;
 			}
 
 			for (int i = 0; i < 4; i++) {
@@ -198,33 +196,61 @@ public class MagicCircle : MonoBehaviour
 			runeCountTexts [id].text = "x" + playerStatus.runeCounts [id];
 		}
 	}
-	//helper function
+	//helper function for getting the bonus index
 	//please only use this function for major rune slot
-	int bothConnect (int i)
+	int bothConnected (int i)
 	{
 		if (slots [i].rune == null) {
+			Debug.Log ('A');
 			return -1;
+
 		}
 		//adjacent minor rune slot
-		int j, k;
+		int k;
 		//handling null cases
-		if (i < 7) {
-			j = i + 1;
-		} else
-			j = 0;
 
 		if (i > 0) {
-			k = i + 1;
+			k = i - 1;
 		} else
 			k = 7;
-		if (minorSlots [j].rune == null || minorSlots [k].rune == null) {//
+		if (minorSlots [i].rune == null || minorSlots [k].rune == null) {//
+			Debug.Log ("B");
 			return -1;
+
 		}
 
 		//check triangle
-		if (slots [i].rune.id == minorSlots [j].rune.id && slots [i].rune.id == minorSlots [k].rune.id) {
+		if (slots [i].rune.id == minorSlots [i].rune.id && slots [i].rune.id == minorSlots [k].rune.id) {
 			return slots [i].rune.id;
 		}
+		Debug.Log ("C");
 		return -1;
+
+	}
+
+	//set up the bonus and the engery for the next day
+	//shall be call pressing the button to go to the next day
+	public void applyReward ()
+	{
+		bool[] bonuses = new bool[4]{ false, false, false, false };
+		int index, majorRuneCounter = 0;
+		for (int i = 0; i < 8; i++) {
+			index = bothConnected (i);
+			Debug.Log ("slotIndex: " + i + "bonusIndex" + index);
+			if (slots [i].rune != null) {
+				majorRuneCounter++;
+			}
+			if (index != -1) {
+				bonuses [index] = true;
+			}
+		}
+		playerStatus.bonuses = bonuses;
+		float energyMultiplier = 1;
+		if (playerStatus.bonuses [1] == true) {
+			energyMultiplier = 1.5f;
+		}
+		//new energy in the next day default energy * runes in outter ring * (1.5 with life bonus or 1 without)  
+		playerStatus.playerEnergy = Mathf.RoundToInt ((float)PlayerStatus.DefaultEnergy * (float)majorRuneCounter / 8f * energyMultiplier);
+		Debug.Log ("Life: " + bonuses [0] + "Death: " + bonuses [1] + "Earth: " + bonuses [2] + "Fire: " + bonuses [3] + "\nEnergy: " + playerStatus.playerEnergy);
 	}
 }

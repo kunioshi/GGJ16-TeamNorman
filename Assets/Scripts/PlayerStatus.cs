@@ -13,7 +13,7 @@ public enum RuneId
 public class PlayerStatus: MonoBehaviour
 {
 	public Vector2i playerGridPosition = new Vector2i (0, 0);
-
+	public static int DefaultEnergy = 40;
 	// The player starts each day with 40 energy by default
 	public int playerEnergy = 40;
 
@@ -27,7 +27,7 @@ public class PlayerStatus: MonoBehaviour
 	// Earth: 1.5x energy
 	//	Death: 2/3 energy cost on all tiles
 	//	Fire: 50% chance to get double resources per tile
-	public bool[] bonuses = new bool[4] {false, false, false, false};
+	public bool[] bonuses = new bool[4] { false, false, false, false };
 
 	// The number of ingredients missing in last night's ritual, from 0 to 8
 	// For each ingredient missing, the player takes an energy penalty of 5 the next day
