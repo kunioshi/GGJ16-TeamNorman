@@ -32,7 +32,7 @@ public class MagicCircle : MonoBehaviour
 					Screen.height * (0.7f - i * 0.16f),
 					runeList [i].transform.position.z
 				);
-				runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (70, -50, 0);
+				//runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (70, -50, 0);
 
 			} else {
 				runeList [i].transform.position = new Vector3 (
@@ -40,7 +40,7 @@ public class MagicCircle : MonoBehaviour
 					Screen.height * (1.18f - i * 0.48f),
 					runeList [i].transform.position.z);
 
-				runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (-100, -50, 0);
+				//runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (-100, -50, 0);
 			}
 			runePositions [i] = runeList [i].transform.position;
 			setTextByIndex (i);
@@ -242,11 +242,12 @@ public class MagicCircle : MonoBehaviour
 	//set up the text base on the index
 	void setTextByIndex (int i)
 	{
-		if (i == 0 || i == 3) {
-			runeCountTexts [i].text = "x" + playerStatus.runeCounts [i];
-		} else {
-			runeCountTexts [i].text = playerStatus.runeCounts [i] + "x";
-		}
+//		if (i == 0 || i == 3) {
+//			runeCountTexts [i].text = "x" + playerStatus.runeCounts [i];
+//		} else {
+//			runeCountTexts [i].text = playerStatus.runeCounts [i] + "x";
+//		}
+		runeCountTexts [i].text = playerStatus.runeCounts [i].ToString ();
 	}
 
 
