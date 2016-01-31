@@ -30,7 +30,7 @@ public class DemoButton : MonoBehaviour
 
     public void ToMenu()
     {
-		Destroy (GameObject.Find ("GameController"));
+		DestroyGameController ();
         SceneManager.LoadScene("MainMenuScene");
 	}
 
@@ -45,5 +45,14 @@ public class DemoButton : MonoBehaviour
 		tileManager.probabilities[0] += 1;
 		Debug.Log (tileManager.probabilities[0]);
 		SceneManager.LoadScene("DayScene");
+	}
+
+	public void DestroyGameController ()
+	{
+		Destroy (GameObject.Find ("GameController"));
+	}
+
+	public void ExitProgram () {
+		Application.Quit();
 	}
 }
