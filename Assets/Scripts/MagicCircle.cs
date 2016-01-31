@@ -12,6 +12,7 @@ public class MagicCircle : MonoBehaviour
 	private Rune current;
 	public RuneSlot[] slots;
 	public RuneSlot[] minorSlots;
+	public RuneSlot[] runeListSlots;
 	public GameObject gameController;
 	public PlayerStatus playerStatus;
 	public Text[] runeCountTexts;
@@ -43,6 +44,7 @@ public class MagicCircle : MonoBehaviour
 				//runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (-100, -50, 0);
 			}
 			runePositions [i] = runeList [i].transform.position;
+			runeListSlots [i].transform.position = runePositions [i];
 //			setTextByIndex (i);
 			runeSFX [i].enabled = false;
 		}
@@ -154,17 +156,18 @@ public class MagicCircle : MonoBehaviour
 							playerStatus.AddRuneToInventory (minorSlots [i].rune.id);
 							runeList [minorSlots [i].rune.id] = minorSlots [i].rune;
 							runeList [minorSlots [i].rune.id].transform.position = runePositions [minorSlots [i].rune.id];
-							Debug.Log (playerStatus.runeCounts [current.id] + "minor replace");
-
-							runeList [minorSlots [i].rune.id] = minorSlots [i].rune;
-							runeList [minorSlots [i].rune.id].transform.position = runePositions [minorSlots [i].rune.id];
-						}
-						minorSlots [i].rune = current;
-						//	holding--;
-						if (playerStatus.runeCounts [current.id] > 0) {
-							runeList [current.id] = (Rune)Instantiate (current, minorSlots [i].transform.position, current.transform.rotation);
+						} else if (playerStatus.runeCounts [current.id] > 0) {
+							Debug.Log ("new rune generated in runePosition[ " + current.id + " ]");
+							runeList [current.id] = (Rune)Instantiate (current, runePositions [current.id], current.transform.rotation);
 							runeList [current.id].transform.position = runePositions [current.id];
+							runeList [current.id].transform.SetParent (runeListSlots [current.id].transform);
 						}
+
+
+						minorSlots [i].rune = current;
+						minorSlots [i].transform.position = minorSlots [i].transform.position;
+						//	holding--;
+
 						//						current.transform.position = runePositions [current.id];
 						current = null;
 						break;
@@ -182,6 +185,11 @@ public class MagicCircle : MonoBehaviour
 							runeList [slots [i].rune.id] = slots [i].rune;
 							runeList [slots [i].rune.id].transform.position = runePositions [slots [i].rune.id];
 
+						} else if (playerStatus.runeCounts [current.id] > 0) {
+							Debug.Log ("new rune generated in runePosition[ " + current.id + " ]");
+							runeList [current.id] = (Rune)Instantiate (current, runePositions [current.id], current.transform.rotation);
+							runeList [current.id].transform.position = runePositions [current.id];
+							runeList [current.id].transform.SetParent (runeListSlots [current.id].transform);
 						}
 						slots [i].rune = current;
 						if (playerStatus.runeCounts [current.id] > 0) {
@@ -194,10 +202,7 @@ public class MagicCircle : MonoBehaviour
 							runeList [current.id].transform.position = runePositions [current.id];
 						}
 //					current.transform.position = runePositions [current.id];
-						if (playerStatus.runeCounts [current.id] > 0) {
-							runeList [current.id] = (Rune)Instantiate (current, minorSlots [i].transform.position, current.transform.rotation);
-							runeList [current.id].transform.position = runePositions [current.id];
-						}
+
 						current = null;
 						break;
 					}		
