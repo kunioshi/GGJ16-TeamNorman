@@ -68,23 +68,23 @@ public class MapLoader : MonoBehaviour {
 
 		switch (tile.Type) {
 		case Tile.TileType.Plains:
-			gridTile = plainPrefabs [Random.Range (0, plainPrefabs.Length)];
+			gridTile = plainPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		case Tile.TileType.Forest:
-			gridTile = forestPrefabs [Random.Range (0, forestPrefabs.Length)];
+			gridTile = forestPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		case Tile.TileType.Mountain:
-			gridTile = mountainPrefabs [Random.Range (0, mountainPrefabs.Length)];
+			gridTile = mountainPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		case Tile.TileType.Volcano:
-			gridTile = volcanoPrefabs [Random.Range (0, volcanoPrefabs.Length)];
+			gridTile = volcanoPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		default:
-			gridTile = plainPrefabs [Random.Range (0, plainPrefabs.Length)];
+			gridTile = plainPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		}
