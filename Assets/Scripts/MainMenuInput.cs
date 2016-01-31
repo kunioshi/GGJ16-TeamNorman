@@ -4,26 +4,35 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class MainMenuInput : MonoBehaviour {
+public class MainMenuInput : MonoBehaviour
+{
     
-	void Start () {
-        
-    }
+	public AudioSource click;
 
-    public void ToGame()
-    {
-        SceneManager.LoadScene("NightScene");
-    }
+	void Start ()
+	{
+
+	}
 
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
+
+	public void ToGame ()
+	{
+		click.enabled = true;
+		SceneManager.LoadScene ("NightScene");
+	}
+
+
+	public void Exit ()
+	{
+		click.enabled = true;
+		Application.Quit ();
+	}
     
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
         
 	}
 }

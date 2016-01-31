@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
-public class UserInput : MonoBehaviour {
+public class UserInput : MonoBehaviour
+{
 	public float inputHorizontal = 0f;
 	public float inputVertical = 0f;
 	public bool inputMouseButton0 = false;
@@ -10,20 +12,22 @@ public class UserInput : MonoBehaviour {
 	public GameObject mainCharacter;
 	private PlayerBehaviour playerBehave;
 
-//	private List<Tile> movePath = new List<Tile> ();
-//	private int curPathIndex = 0;
+	//	private List<Tile> movePath = new List<Tile> ();
+	//	private int curPathIndex = 0;
 	
 	public TileManager tileManager;
 	public PlayerStatus playerStatus;
 	public MapLoader mapLoader;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		inputHorizontal = Input.GetAxisRaw ("Horizontal");
 		inputVertical = Input.GetAxisRaw ("Vertical");
 //		inputMouseButton0 = Input.GetMouseButton (0);
@@ -91,9 +95,10 @@ public class UserInput : MonoBehaviour {
 		}
 	}
 
-	void OnLevelWasLoaded (int level) {
+	void OnLevelWasLoaded (int level)
+	{
 		// When the DayScene(1) is loaded, get the MainCharacter
-		if (level == 1) {
+		if (level == SceneManager.GetSceneByName ("DayScene").buildIndex) {
 			mainCharacter = GameObject.Find ("MainCharacter");
 
 			if (mainCharacter == null) {
@@ -108,33 +113,35 @@ public class UserInput : MonoBehaviour {
 		}
 	}
 
-	void LoadMapOnWalk () {
+	void LoadMapOnWalk ()
+	{
 		mapLoader.LoadMapForWalk ();
 		mapLoader.DisablePlayerGridTile ();
 	}
 
-//	void GetMouseClickPosition () {
-//		// Converting Mouse Pos to 2D (Vector2) World Pos
-//		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-//		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
-//
-//		if (hit) {
-//			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
-//
-//			// Convert 3D position into Grid Position
-//			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
-//			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
-//
-//			// Pathfinder
-//			movePath = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
-//			curPathIndex = 0;
-//		}
-//	}
+	//	void GetMouseClickPosition () {
+	//		// Converting Mouse Pos to 2D (Vector2) World Pos
+	//		Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+	//		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
+	//
+	//		if (hit) {
+	//			Vector2i hitPos = new Vector2i ((int)hit.transform.position.x, (int)hit.transform.position.y);
+	//
+	//			// Convert 3D position into Grid Position
+	//			hitPos.x /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.x;
+	//			hitPos.y /= (int)hit.collider.gameObject.GetComponent<SpriteRenderer> ().bounds.size.y;
+	//
+	//			// Pathfinder
+	//			movePath = tileManager.getPath (playerStatus.playerGridPosition, hitPos, playerStatus.playerEnergy);
+	//			curPathIndex = 0;
+	//		}
+	//	}
 
-	bool tryToMoveTo (Vector2i newPosition) {
+	bool tryToMoveTo (Vector2i newPosition)
+	{
 		Tile currTile = tileManager.getTile (newPosition);
 		float deathBonus = 1;
-		if (playerStatus.bonuses[2]) {
+		if (playerStatus.bonuses [2]) {
 			deathBonus = 2f / 3f;
 		}
 		int cost = 0;
@@ -168,7 +175,7 @@ public class UserInput : MonoBehaviour {
 						Debug.Assert (false);
 						break;
 					}
-					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+					if (playerStatus.bonuses [(int)RuneId.Fire]) {
 						reward *= Random.Range (1, 3);
 					}
 					playerStatus.runeCounts [(int)RuneId.Earth] += reward;
@@ -183,7 +190,7 @@ public class UserInput : MonoBehaviour {
 				playerStatus.playerGridPosition = newPosition;
 				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
 					reward = 2;
-					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+					if (playerStatus.bonuses [(int)RuneId.Fire]) {
 						reward *= Random.Range (1, 3);
 					}
 					playerStatus.runeCounts [(int)RuneId.Life] += reward;
@@ -197,7 +204,7 @@ public class UserInput : MonoBehaviour {
 				playerStatus.playerEnergy -= cost;
 				playerStatus.playerGridPosition = newPosition;
 				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
-					switch (Random.Range(0, 2)) {
+					switch (Random.Range (0, 2)) {
 					case 0:
 						reward = 3;
 						break;
@@ -208,7 +215,7 @@ public class UserInput : MonoBehaviour {
 						Debug.Assert (false);
 						break;
 					}
-					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+					if (playerStatus.bonuses [(int)RuneId.Fire]) {
 						reward *= Random.Range (1, 3);
 					}
 					playerStatus.runeCounts [(int)RuneId.Death] += reward;
@@ -236,7 +243,7 @@ public class UserInput : MonoBehaviour {
 						Debug.Assert (false);
 						break;
 					}
-					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+					if (playerStatus.bonuses [(int)RuneId.Fire]) {
 						reward *= Random.Range (1, 3);
 					}
 					playerStatus.runeCounts [(int)RuneId.Fire] += reward;

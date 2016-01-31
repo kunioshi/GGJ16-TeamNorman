@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
-public class MapLoader : MonoBehaviour {
+public class MapLoader : MonoBehaviour
+{
 	public PlayerStatus playerStatus;
 	public TileManager tileManager;
 
@@ -15,17 +17,20 @@ public class MapLoader : MonoBehaviour {
 	private List<Tile> loadedTiles = new List<Tile> ();
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 	
 	}
 
-	void OnLevelWasLoaded (int level) {
-		if (level == 1) {
+	void OnLevelWasLoaded (int level)
+	{
+		if (level == SceneManager.GetSceneByName ("DayScene").buildIndex) {
 			PrintInitialMap ();
 
 			Vector3 tileSize = plainPrefabs [0].GetComponent<SpriteRenderer> ().bounds.size;
@@ -34,7 +39,8 @@ public class MapLoader : MonoBehaviour {
 		}
 	}
 
-	void PrintInitialMap () {
+	void PrintInitialMap ()
+	{
 		List<Tile> visibleTiles = tileManager.getVisibleTiles (playerStatus.playerGridPosition);
 
 		foreach (Tile tile in visibleTiles) {
@@ -48,7 +54,8 @@ public class MapLoader : MonoBehaviour {
 		tileManager.getTile (playerStatus.playerGridPosition).gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
 	}
 
-	public void LoadMapForWalk () {
+	public void LoadMapForWalk ()
+	{
 		List<Tile> newVisibleTiles = tileManager.getVisibleTiles (playerStatus.playerGridPosition);
 
 		foreach (Tile tile in newVisibleTiles) {
@@ -60,7 +67,8 @@ public class MapLoader : MonoBehaviour {
 		}
 	}
 
-	bool CheckLoadedTile (Tile tile) {
+	bool CheckLoadedTile (Tile tile)
+	{
 		foreach (Tile t in loadedTiles) {
 			if (t.Position == tile.Position) {
 				return true;
@@ -70,7 +78,8 @@ public class MapLoader : MonoBehaviour {
 		return false;
 	}
 
-	void CreateGridTile (Tile tile) {
+	void CreateGridTile (Tile tile)
+	{
 		GameObject gridTile = plainPrefabs [0];
 		Vector3 tile3DPosition = Vector3.zero;
 
@@ -111,7 +120,8 @@ public class MapLoader : MonoBehaviour {
 		}
 	}
 
-	public void DisablePlayerGridTile () {
+	public void DisablePlayerGridTile ()
+	{
 		Tile currTile = tileManager.getTile (playerStatus.playerGridPosition);
 		currTile.Traversed = true;
 		currTile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
