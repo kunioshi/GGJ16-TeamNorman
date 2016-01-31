@@ -1473,6 +1473,8 @@ MonoBehaviour:
   playerEnergy: 120
   playerVisionRange: 3
   runeCounts: 02000000020000000200000002000000
+  bonuses: 00000000
+  penalty: 0
 --- !u!114 &1052409470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,12 +1503,34 @@ MonoBehaviour:
   tileManager: {fileID: 1052409470}
   plainPrefabs:
   - {fileID: 128912, guid: 937b89f7cdef34482aef271840cdfe5a, type: 2}
+  - {fileID: 185678, guid: c36342dd6dfc341bab5d6b2a0fc341c1, type: 2}
+  - {fileID: 140558, guid: 4ef26df449875472989d25acb9629746, type: 2}
+  - {fileID: 154674, guid: 8d9d1520be931449292e284c1811aecc, type: 2}
   forestPrefabs:
-  - {fileID: 182422, guid: ec7b7cde5429e4f61a301b3be41ea9c3, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mountainPrefabs:
-  - {fileID: 172432, guid: 0e8468138eb3c46b3b71ef5d328b34b2, type: 2}
+  - {fileID: 136738, guid: 9507641c198ee4de68bf14f96833012a, type: 2}
+  - {fileID: 170986, guid: 9509e8edcacbf4ccab3238e61ea65d0b, type: 2}
+  - {fileID: 178892, guid: 4ddb5555307594267aa351613094f8fd, type: 2}
+  - {fileID: 156074, guid: de4bc7e502b9b40a39fd753c7deb3480, type: 2}
+  cavePrefabs:
+  - {fileID: 119258, guid: 09d911c2e9d6946479e733add0abbd47, type: 2}
+  - {fileID: 199484, guid: e7c7969404a1345cda2015f2d1c050f5, type: 2}
+  - {fileID: 182842, guid: de2d2722c511e4f16a37f5ca8bfc3952, type: 2}
+  - {fileID: 120454, guid: 9ef681744f3c247aea5bfa03ec8325f2, type: 2}
   volcanoPrefabs:
-  - {fileID: 153162, guid: e0ba7a874f51b4e2da95cea7db23a6de, type: 2}
+  - {fileID: 195984, guid: eb7e59fd638e246f8ab3648337980bad, type: 2}
+  - {fileID: 170720, guid: 4e3d7594a25f042879d872dab9fdb046, type: 2}
+  - {fileID: 178126, guid: 0491c11df443645c395951c58805b2c0, type: 2}
+  - {fileID: 158180, guid: c1afa3f3c2fa24b24b2cce2fd523e83c, type: 2}
+  graveyardPrefabs:
+  - {fileID: 112196, guid: 9f7ba685d30ed460f8c81eaf6e9b670e, type: 2}
+  - {fileID: 111582, guid: 20dbaf2dc95e743f186af7e45158833a, type: 2}
+  - {fileID: 172122, guid: 94b9016a4a6c7438fa72daf14967547c, type: 2}
+  - {fileID: 158670, guid: f5a2987e77877480f947ad8bf792552b, type: 2}
 --- !u!1 &1079327684
 GameObject:
   m_ObjectHideFlags: 0

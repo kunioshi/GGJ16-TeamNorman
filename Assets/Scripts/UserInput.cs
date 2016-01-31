@@ -10,8 +10,8 @@ public class UserInput : MonoBehaviour {
 	public GameObject mainCharacter;
 	private PlayerBehaviour playerBehave;
 
-	private List<Tile> movePath = new List<Tile> ();
-	private int curPathIndex = 0;
+//	private List<Tile> movePath = new List<Tile> ();
+//	private int curPathIndex = 0;
 	
 	public TileManager tileManager;
 	public PlayerStatus playerStatus;
@@ -82,6 +82,7 @@ public class UserInput : MonoBehaviour {
 
 	void LoadMapOnWalk () {
 		mapLoader.LoadMapForWalk ();
+		mapLoader.DisableTargetGridTile ();
 	}
 
 //	void GetMouseClickPosition () {
