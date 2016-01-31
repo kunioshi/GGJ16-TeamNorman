@@ -36,15 +36,25 @@ public class DemoButton : MonoBehaviour
 
 	public void ToNight()
 	{
-		SceneManager.LoadScene("NightScene");
+		int[] runeCounts = playerStatus.runeCounts;
+		if (runeCounts [0] + runeCounts [1] + runeCounts [2] + runeCounts [3] == 0) {
+			SceneManager.LoadScene ("GameOver");
+		} else {
+			SceneManager.LoadScene("NightScene");
+		}
 	}
 
 	public void ToDay()
 	{
-		playerStatus.day += 1;
-		tileManager.probabilities[0] += 1;
-		Debug.Log (tileManager.probabilities[0]);
-		SceneManager.LoadScene("DayScene");
+		if (playerStatus.playerEnergy != 0) {
+			playerStatus.day += 1;
+			tileManager.probabilities [0] += 1;
+			Debug.Log (tileManager.probabilities [0]);
+			SceneManager.LoadScene ("DayScene");
+		} else {
+			SceneManager.LoadScene ("GameOver");
+		}
+
 	}
 
 	public void DestroyGameController ()

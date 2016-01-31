@@ -2498,7 +2498,7 @@ MonoBehaviour:
   day: 0
   playerEnergy: 0
   playerVisionRange: 3
-  runeCounts: 14000000140000001400000014000000
+  runeCounts: 01000000010000000100000001000000
   bonuses: 00000000
   penalty: 0
 --- !u!114 &1052409470
