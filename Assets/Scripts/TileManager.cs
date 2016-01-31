@@ -48,10 +48,8 @@ public class Tile
     public enum TileType
     {
         Plains = 0,
-        Forest,
         Mountain,
         Cave,
-        Lake,
         Graveyard,
         Volcano,
         N_TILE_TYPES
@@ -68,6 +66,8 @@ public class Tile
     public TileType Type { get; private set; }
 
     public Vector2i Position { get; private set; }
+
+	public GameObject gridTile;
 
     public Tile[] neighbors = new Tile[4];
 
@@ -101,9 +101,9 @@ public class TileManager : PersistentObject {
         float value = Random.value;
         float tileMaxValue = 0;
         float divisor = 0;
-        foreach(int val in probabilities)
-        {
-            divisor += val;
+		for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
+		{
+			divisor += probabilities[i];
         }
 
         float[] normalizedProbabilities = new float[(int)Tile.TileType.N_TILE_TYPES];
@@ -115,7 +115,7 @@ public class TileManager : PersistentObject {
 
         for(int i = 0; i < (int)Tile.TileType.N_TILE_TYPES; i++)
         {
-            tileMaxValue += probabilities[i];
+			tileMaxValue += normalizedProbabilities[i];
             if(value <= tileMaxValue)
             {
                 return (Tile.TileType)i;
@@ -362,6 +362,11 @@ public class TileManager : PersistentObject {
     void Awake()
     {
         _tiles = new Dictionary<Vector2i, Tile>();  //Create a new tile dictionary
+		probabilities [0] = 1;
+		probabilities [1] = 1;
+		probabilities [2] = 1;
+		probabilities [3] = 1;
+		probabilities [4] = 1;
         Vector2i initialPosition = new Vector2i(0, 0);  //Set initial position
         _tiles.Add(initialPosition, new Tile(Tile.TileType.Plains, Random.Range(0, 4), initialPosition));   //Create tile at initial position
 		createTiles(initialPosition, playerStatus.playerVisionRange);    //Create tiles around initial position.
@@ -370,9 +375,11 @@ public class TileManager : PersistentObject {
         Tile.defaultTerrainPenalties[2] = 3;
         Tile.defaultTerrainPenalties[3] = 2;
         Tile.defaultTerrainPenalties[4] = 2;
-        Tile.defaultTerrainPenalties[5] = 2;
-        Tile.defaultTerrainPenalties[6] = 4;
+
         resetTerrainPenalties();
+
+
+
         foreach(Tile t in _tiles.Values)
         {
             Debug.Log(t.ToString());

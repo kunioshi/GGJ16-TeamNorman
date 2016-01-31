@@ -7,9 +7,10 @@ public class MapLoader : MonoBehaviour {
 	public TileManager tileManager;
 
 	public GameObject[] plainPrefabs;
-	public GameObject[] forestPrefabs;
 	public GameObject[] mountainPrefabs;
+	public GameObject[] cavePrefabs;
 	public GameObject[] volcanoPrefabs;
+	public GameObject[] graveyardPrefabs;
 
 	private List<Tile> loadedTiles = new List<Tile> ();
 
@@ -38,6 +39,13 @@ public class MapLoader : MonoBehaviour {
 
 		// Save/Reset the already loaded tiles
 		loadedTiles = visibleTiles;
+
+		// Disable the initial tile (0, 0)
+		foreach (Tile tile in loadedTiles) {
+			if (tile.Position == new Vector2i (0, 0)) {
+				tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+			}
+		}
 	}
 
 	public void LoadMapForWalk () {
@@ -71,16 +79,20 @@ public class MapLoader : MonoBehaviour {
 			gridTile = plainPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
-		case Tile.TileType.Forest:
-			gridTile = forestPrefabs [tile.SpriteNumber];
-			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
-			break;
 		case Tile.TileType.Mountain:
 			gridTile = mountainPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		case Tile.TileType.Volcano:
 			gridTile = volcanoPrefabs [tile.SpriteNumber];
+			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
+			break;
+		case Tile.TileType.Cave:
+			gridTile = cavePrefabs [tile.SpriteNumber];
+			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
+			break;
+		case Tile.TileType.Graveyard:
+			gridTile = graveyardPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		default:
@@ -92,6 +104,15 @@ public class MapLoader : MonoBehaviour {
 		// Include the size of the prefab in the math of the 3D position
 		tile3DPosition *= gridTile.GetComponent<SpriteRenderer> ().bounds.size.x;
 
-		Instantiate (gridTile, tile3DPosition, transform.rotation);
+		tile.gridTile = (GameObject)Instantiate (gridTile, tile3DPosition, transform.rotation);
+	}
+
+	public void DisableTargetGridTile () {
+		foreach (Tile tile in loadedTiles) {
+			if (tile.Position == playerStatus.playerGridPosition) {
+				tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+				return;
+			}
+		}
 	}
 }
