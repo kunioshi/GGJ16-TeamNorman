@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/NightScene.unity
-  isLoaded: 1
-  isActive: 1
