@@ -21,4 +21,9 @@ public class DemoButton : MonoBehaviour
 	{
 		SceneManager.LoadScene (1);
 	}
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
 }

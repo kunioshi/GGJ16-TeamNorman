@@ -4,13 +4,33 @@ using System.Collections.Generic;
 
 public class Button
 {
+    public const int BUTTON_UP = 0;
+    public const int BUTTON_DOWN = 1;
+
     public Sprite Up {  get; private set; }
     public Sprite Down { get; private set; }
 
-    public Button(Sprite up, Sprite down)
+    private SpriteRenderer _renderer;
+
+    public Button(Sprite up, Sprite down, SpriteRenderer renderer)
     {
         Up = up;
         Down = down;
+        _renderer = renderer;
+    }
+
+    public Button(Sprite up, Sprite down, GameObject obj) : this(up, down, obj.GetComponent<SpriteRenderer>()) { }
+
+    public void changeState(int state)
+    {
+        if(state == BUTTON_UP)
+        {
+            _renderer.sprite = Up;
+        }
+        else if(state == BUTTON_DOWN)
+        {
+            _renderer.sprite = Down;
+        }
     }
 }
 
@@ -21,7 +41,6 @@ public class MainMenuInput : MonoBehaviour {
     private Dictionary<KeyCode, int> _keyCodeIndexRef;
     private int _curOption = 0;
 
-    private GameObject _start, _instructions, _exit;
     private Button _startBtn, _instrBtn, _exitBtn;
 
 	// Use this for initialization
@@ -33,15 +52,14 @@ public class MainMenuInput : MonoBehaviour {
         _keyCodeIndexRef.Add(KeyCode.DownArrow, 3);
         _keyCodeIndexRef.Add(KeyCode.Z, 4);
         _keyCodeIndexRef.Add(KeyCode.X, 5);
-        _start = GameObject.Find("StartBtn");
-        _instructions = GameObject.Find("InstructBtn");
-        _exit = GameObject.Find("ExitBtn");
 
-        _startBtn = new Button(Resources.Load<Sprite>("StartBtn"), Resources.Load<Sprite>("StartBtnDown"));
-        _instrBtn = new Button(Resources.Load<Sprite>("InstructBtn"), Resources.Load<Sprite>("InstructBtnDown"));
-        _exitBtn = new Button(Resources.Load<Sprite>("ExitBtn"), Resources.Load<Sprite>("ExitBtnDown"));
+        _startBtn = new Button(Resources.Load<Sprite>("StartBtn"), Resources.Load<Sprite>("StartBtnDown"), GameObject.Find("StartBtn"));
+        _instrBtn = new Button(Resources.Load<Sprite>("InstructBtn"), Resources.Load<Sprite>("InstructBtnDown"), GameObject.Find("InstructBtn"));
+        _exitBtn = new Button(Resources.Load<Sprite>("ExitBtn"), Resources.Load<Sprite>("ExitBtnDown"), GameObject.Find("ExitBtn"));
 
-        _start.GetComponent<SpriteRenderer>().sprite = _startBtn.Down;
+        _startBtn.changeState(Button.BUTTON_DOWN);
+        _instrBtn.changeState(Button.BUTTON_UP);
+        _exitBtn.changeState(Button.BUTTON_UP);
     }
 
     void getInputs()
@@ -70,6 +88,33 @@ public class MainMenuInput : MonoBehaviour {
 
         return !_prevInputs[index] && _curInputs[index];
     }
+
+    void changeSelected(int option)
+    {
+        switch(option)
+        {
+            case 0:
+                _startBtn.changeState(Button.BUTTON_DOWN);
+                _instrBtn.changeState(Button.BUTTON_UP);
+                _exitBtn.changeState(Button.BUTTON_UP);
+                break;
+            case 1:
+                _startBtn.changeState(Button.BUTTON_UP);
+                _instrBtn.changeState(Button.BUTTON_DOWN);
+                _exitBtn.changeState(Button.BUTTON_UP);
+                break;
+            case 2:
+                _startBtn.changeState(Button.BUTTON_UP);
+                _instrBtn.changeState(Button.BUTTON_UP);
+                _exitBtn.changeState(Button.BUTTON_DOWN);
+                break;
+            default:
+                _startBtn.changeState(Button.BUTTON_UP);
+                _instrBtn.changeState(Button.BUTTON_UP);
+                _exitBtn.changeState(Button.BUTTON_UP);
+                break;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -92,23 +137,7 @@ public class MainMenuInput : MonoBehaviour {
                 _curOption = 2;
             }
 
-            switch(_curOption)
-            {
-                case 0:
-                    _start.GetComponent<SpriteRenderer>().sprite = _startBtn.Down;
-                    _instructions.GetComponent<SpriteRenderer>().sprite = _instrBtn.Up;
-                    break;
-                
-                case 1:
-                    _instructions.GetComponent<SpriteRenderer>().sprite = _instrBtn.Down;
-                    _exit.GetComponent<SpriteRenderer>().sprite = _exitBtn.Up;
-                    break;
-
-                case 2:
-                    _start.GetComponent<SpriteRenderer>().sprite = _startBtn.Up;
-                    _exit.GetComponent<SpriteRenderer>().sprite = _exitBtn.Down;
-                    break;
-            }
+            changeSelected(_curOption);
         }
 
         if(isPressed(KeyCode.DownArrow))
@@ -118,33 +147,31 @@ public class MainMenuInput : MonoBehaviour {
                 _curOption = 0;
             }
 
-            switch (_curOption)
-            {
-                case 0:
-                    _start.GetComponent<SpriteRenderer>().sprite = _startBtn.Down;
-                    _exit.GetComponent<SpriteRenderer>().sprite = _exitBtn.Up;
-                    break;
-
-                case 1:
-                    _start.GetComponent<SpriteRenderer>().sprite = _startBtn.Up;
-                    _instructions.GetComponent<SpriteRenderer>().sprite = _instrBtn.Down;
-                    break;
-
-                case 2:
-                    _instructions.GetComponent<SpriteRenderer>().sprite = _instrBtn.Up;
-                    _exit.GetComponent<SpriteRenderer>().sprite = _exitBtn.Down;
-                    break;
-            }
+            changeSelected(_curOption);
         }
 
         if(isPressed(KeyCode.Z))
         {
+            switch(_curOption)
+            {
+                case 0:
+                    //TODO: Switch scene
+                    break;
 
+                case 1:
+                    //TODO: Display instrucitons
+                    break;
+
+                case 2:
+                    Application.Quit();
+                    break;
+            }
         }
 
         if(isPressed(KeyCode.X))
         {
-
+            _curOption = 0;
+            changeSelected(_curOption);
         }
 
         resetInput();
