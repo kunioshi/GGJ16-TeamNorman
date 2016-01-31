@@ -43,7 +43,7 @@ public class MagicCircle : MonoBehaviour
 				//runeCountTexts [i].transform.position = runeList [i].transform.position + new Vector3 (-100, -50, 0);
 			}
 			runePositions [i] = runeList [i].transform.position;
-			setTextByIndex (i);
+//			setTextByIndex (i);
 			runeSFX [i].enabled = false;
 		}
 		RectTransform rectTrans = gameObject.GetComponent<RectTransform> ();
@@ -189,7 +189,7 @@ public class MagicCircle : MonoBehaviour
 			}
 
 			for (int i = 0; i < 4; i++) {
-				setTextByIndex (i);
+//				setTextByIndex (i);
 			}
 		}
 
@@ -240,15 +240,15 @@ public class MagicCircle : MonoBehaviour
 
 	}
 	//set up the text base on the index
-	void setTextByIndex (int i)
-	{
-//		if (i == 0 || i == 3) {
-//			runeCountTexts [i].text = "x" + playerStatus.runeCounts [i];
-//		} else {
-//			runeCountTexts [i].text = playerStatus.runeCounts [i] + "x";
-//		}
-		runeCountTexts [i].text = playerStatus.runeCounts [i].ToString ();
-	}
+	//	void setTextByIndex (int i)
+	//	{
+	////		if (i == 0 || i == 3) {
+	////			runeCountTexts [i].text = "x" + playerStatus.runeCounts [i];
+	////		} else {
+	////			runeCountTexts [i].text = playerStatus.runeCounts [i] + "x";
+	////		}
+	//		runeCountTexts [i].text = playerStatus.runeCounts [i].ToString ();
+	//	}
 
 
 	//set up the bonus and the engery for the next day
