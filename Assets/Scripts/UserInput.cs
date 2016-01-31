@@ -38,24 +38,26 @@ public class UserInput : MonoBehaviour {
 //				playerBehave.MoveDirection (dir);
 //				LoadMapOnWalk ();
 //			} else 
+			Vector2i newPosition = playerStatus.playerGridPosition;
 			if (inputHorizontal != 0) {
 				Direction dir = inputHorizontal > 0 ? Direction.Right : Direction.Left;
+				newPosition.x += (int)inputHorizontal;
 
-				// Update the player's position on the grid
-				playerStatus.playerGridPosition.x += (int)inputHorizontal;
 
-				// Start the move animation
-				playerBehave.MoveDirection (dir);
-				LoadMapOnWalk ();
+				if (tryToMoveTo (newPosition)) {
+					// Start the move animation
+					playerBehave.MoveDirection (dir);
+					LoadMapOnWalk ();
+				}
 			} else if (inputVertical != 0) {
 				Direction dir = inputVertical > 0 ? Direction.Up : Direction.Down;
+				newPosition.y += (int)inputVertical;
 
-				// Update the player's position on the grid
-				playerStatus.playerGridPosition.y += (int)inputVertical;
-
-				// Start the move animation
-				playerBehave.MoveDirection (dir);
-				LoadMapOnWalk ();
+				if (tryToMoveTo (newPosition)) {
+					// Start the move animation
+					playerBehave.MoveDirection (dir);
+					LoadMapOnWalk ();
+				}
 			}
 //			else if (inputMouseButton0) {
 //				GetMouseClickPosition ();
@@ -82,7 +84,7 @@ public class UserInput : MonoBehaviour {
 
 	void LoadMapOnWalk () {
 		mapLoader.LoadMapForWalk ();
-		mapLoader.DisableTargetGridTile ();
+		mapLoader.DisablePlayerGridTile ();
 	}
 
 //	void GetMouseClickPosition () {
@@ -102,5 +104,58 @@ public class UserInput : MonoBehaviour {
 //			curPathIndex = 0;
 //		}
 //	}
+
+	bool tryToMoveTo (Vector2i newPosition) {
+		Tile currTile = tileManager.getTile (newPosition);
+		float deathBonus = 1;
+		if (playerStatus.bonuses[2]) {
+			deathBonus = 2f / 3f;
+		}
+		int cost;
+		switch (currTile.Type) {
+		case Tile.TileType.Plains:
+			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Plains] * deathBonus);
+			if (playerStatus.playerEnergy >= cost) {
+				playerStatus.playerEnergy -= cost;
+				playerStatus.playerGridPosition = newPosition;
+				return true;
+			}
+			return false;
+		case Tile.TileType.Mountain:
+			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Mountain] * deathBonus);
+			if (playerStatus.playerEnergy >= cost) {
+				playerStatus.playerEnergy -= cost;
+				playerStatus.playerGridPosition = newPosition;
+				return true;
+			}
+			return false;
+		case Tile.TileType.Cave:
+			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Cave] * deathBonus);
+			if (playerStatus.playerEnergy >= cost) {
+				playerStatus.playerEnergy -= cost;
+				playerStatus.playerGridPosition = newPosition;
+				return true;
+			}
+			return false;
+		case Tile.TileType.Graveyard:
+			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Graveyard] * deathBonus);
+			if (playerStatus.playerEnergy >= cost) {
+				playerStatus.playerEnergy -= cost;
+				playerStatus.playerGridPosition = newPosition;
+				return true;
+			}
+			return false;
+		case Tile.TileType.Volcano:
+			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Volcano] * deathBonus);
+			if (playerStatus.playerEnergy >= cost) {
+				playerStatus.playerEnergy -= cost;
+				playerStatus.playerGridPosition = newPosition;
+				return true;
+			}
+			return false;
+		default:
+			return false;
+		}
+	}
 }
  

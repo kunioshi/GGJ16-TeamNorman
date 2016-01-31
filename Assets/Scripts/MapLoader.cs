@@ -107,8 +107,9 @@ public class MapLoader : MonoBehaviour {
 		tile.gridTile = (GameObject)Instantiate (gridTile, tile3DPosition, transform.rotation);
 	}
 
-	public void DisableTargetGridTile () {
-		tileManager.getTile(playerStatus.playerGridPosition).gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+	public void DisablePlayerGridTile () {
+		Tile currTile = tileManager.getTile (playerStatus.playerGridPosition);
+		currTile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
 		return;
 	}
 }
