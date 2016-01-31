@@ -16,7 +16,7 @@ public class MapLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
@@ -27,6 +27,10 @@ public class MapLoader : MonoBehaviour {
 	void OnLevelWasLoaded (int level) {
 		if (level == 1) {
 			PrintInitialMap ();
+
+			Vector3 tileSize = plainPrefabs [0].GetComponent<SpriteRenderer> ().bounds.size;
+			Vector3 charPos = new Vector3 (playerStatus.playerGridPosition.x * tileSize.x, playerStatus.playerGridPosition.y * tileSize.y, 0);
+			GameObject.Find ("MainCharacter").transform.position = charPos;
 		}
 	}
 
@@ -40,12 +44,8 @@ public class MapLoader : MonoBehaviour {
 		// Save/Reset the already loaded tiles
 		loadedTiles = visibleTiles;
 
-		// Disable the initial tile (0, 0)
-		foreach (Tile tile in loadedTiles) {
-			if (tile.Position == new Vector2i (0, 0)) {
-				tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
-			}
-		}
+		tileManager.getTile (playerStatus.playerGridPosition).Traversed = true;
+		tileManager.getTile (playerStatus.playerGridPosition).gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
 	}
 
 	public void LoadMapForWalk () {
@@ -105,10 +105,15 @@ public class MapLoader : MonoBehaviour {
 		tile3DPosition *= gridTile.GetComponent<SpriteRenderer> ().bounds.size.x;
 
 		tile.gridTile = (GameObject)Instantiate (gridTile, tile3DPosition, transform.rotation);
+
+		if (tile.Traversed) {
+			tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+		}
 	}
 
 	public void DisablePlayerGridTile () {
 		Tile currTile = tileManager.getTile (playerStatus.playerGridPosition);
+		currTile.Traversed = true;
 		currTile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
 		return;
 	}
