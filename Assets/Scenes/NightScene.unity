@@ -1736,9 +1736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06093464373384a1e901fba1f2b7d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerEnergy: 120
+  playerEnergy: 40
   playerVisionRange: 3
-  runeCounts: 02000000020000000200000002000000
+  runeCounts: 14000000140000001400000014000000
   bonuses: 00000000
   penalty: 0
 --- !u!114 &1052409470
