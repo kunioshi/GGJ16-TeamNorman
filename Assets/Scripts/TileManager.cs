@@ -69,6 +69,8 @@ public class Tile
 
     public Vector2i Position { get; private set; }
 
+	public GameObject gridTile;
+
     public Tile[] neighbors = new Tile[4];
 
     public Tile(TileType t, int spriteNumber, Vector2i position)
