@@ -14,6 +14,7 @@ public class PlayerStatus: MonoBehaviour
 {
 	public Vector2i playerGridPosition = new Vector2i (0, 0);
 	public static int DefaultEnergy = 40;
+	public static int DefaultVision = 3;
 	// The player starts each day with 40 energy by default
 	public int playerEnergy = 40;
 

@@ -249,8 +249,14 @@ public class MagicCircle : MonoBehaviour
 		if (playerStatus.bonuses [1] == true) {
 			energyMultiplier = 1.5f;
 		}
+		int bonusVision = 0;
+		if (playerStatus.bonuses[0] == true) {
+			bonusVision = 1;
+		}
 		//new energy in the next day default energy * runes in outter ring * (1.5 with life bonus or 1 without)  
 		playerStatus.playerEnergy = Mathf.RoundToInt ((float)PlayerStatus.DefaultEnergy * (float)majorRuneCounter / 8f * energyMultiplier);
+		playerStatus.playerVisionRange = PlayerStatus.DefaultVision + bonusVision;
 		Debug.Log ("Life: " + bonuses [0] + "Death: " + bonuses [1] + "Earth: " + bonuses [2] + "Fire: " + bonuses [3] + "\nEnergy: " + playerStatus.playerEnergy);
+		Debug.Log ("Vision: " + playerStatus.playerVisionRange);
 	}
 }
