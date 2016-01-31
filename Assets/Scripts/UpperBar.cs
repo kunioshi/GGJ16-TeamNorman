@@ -21,7 +21,7 @@ public class UpperBar : MonoBehaviour
 				0f);
 			runeCounts [i] = textShadows [i].GetComponentInChildren<Text> ();
 			runeCounts [i].transform.position = textShadows [i].transform.position + new Vector3 (0, -10, 0);
-			;
+			dayText.text = "Day " + playerStatus.day;
 		}
 
 		//set up day text
