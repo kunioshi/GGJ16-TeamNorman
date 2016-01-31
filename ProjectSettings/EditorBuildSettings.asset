@@ -6,8 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+  - enabled: 1
     path: Assets/Scenes/NightScene.unity
   - enabled: 1
     path: Assets/Scenes/DayScene.unity
   - enabled: 1
-    path: Assets/Scenes/MainMenuScene.unity
+    path: Assets/Scenes/GameOver.unity
