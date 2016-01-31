@@ -111,7 +111,8 @@ public class UserInput : MonoBehaviour {
 		if (playerStatus.bonuses[2]) {
 			deathBonus = 2f / 3f;
 		}
-		int cost;
+		int cost = 0;
+		int reward = 0;
 		switch (currTile.Type) {
 		case Tile.TileType.Plains:
 			cost = Mathf.RoundToInt (Tile.defaultTerrainPenalties [(int)Tile.TileType.Plains] * deathBonus);
@@ -126,6 +127,26 @@ public class UserInput : MonoBehaviour {
 			if (playerStatus.playerEnergy >= cost) {
 				playerStatus.playerEnergy -= cost;
 				playerStatus.playerGridPosition = newPosition;
+				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
+					switch (Random.Range (0, 3)) {
+					case 0:
+						reward = 2;
+						break;
+					case 1:
+						reward = 3;
+						break;
+					case 2:
+						reward = 4;
+						break;
+					default:
+						Debug.Assert (false);
+						break;
+					}
+					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+						reward *= Random.Range (1, 3);
+					}
+					playerStatus.runeCounts [(int)RuneId.Earth] += reward;
+				}
 				return true;
 			}
 			return false;
@@ -134,6 +155,13 @@ public class UserInput : MonoBehaviour {
 			if (playerStatus.playerEnergy >= cost) {
 				playerStatus.playerEnergy -= cost;
 				playerStatus.playerGridPosition = newPosition;
+				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
+					reward = 2;
+					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+						reward *= Random.Range (1, 3);
+					}
+					playerStatus.runeCounts [(int)RuneId.Life] += reward;
+				}
 				return true;
 			}
 			return false;
@@ -142,6 +170,23 @@ public class UserInput : MonoBehaviour {
 			if (playerStatus.playerEnergy >= cost) {
 				playerStatus.playerEnergy -= cost;
 				playerStatus.playerGridPosition = newPosition;
+				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
+					switch (Random.Range(0, 2)) {
+					case 0:
+						reward = 3;
+						break;
+					case 1:
+						reward = 7;
+						break;
+					default:
+						Debug.Assert (false);
+						break;
+					}
+					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+						reward *= Random.Range (1, 3);
+					}
+					playerStatus.runeCounts [(int)RuneId.Death] += reward;
+				}
 				return true;
 			}
 			return false;
@@ -150,10 +195,31 @@ public class UserInput : MonoBehaviour {
 			if (playerStatus.playerEnergy >= cost) {
 				playerStatus.playerEnergy -= cost;
 				playerStatus.playerGridPosition = newPosition;
+				if (currTile.gridTile.GetComponent<GridTileTexture> ().enabled) {
+					switch (Random.Range (0, 3)) {
+					case 0:
+						reward = 2;
+						break;
+					case 1:
+						reward = 6;
+						break;
+					case 2:
+						reward = 10;
+						break;
+					default:
+						Debug.Assert (false);
+						break;
+					}
+					if (playerStatus.bonuses[(int)RuneId.Fire]) {
+						reward *= Random.Range (1, 3);
+					}
+					playerStatus.runeCounts [(int)RuneId.Fire] += reward;
+				}
 				return true;
 			}
 			return false;
 		default:
+			Debug.Assert (false);
 			return false;
 		}
 	}
