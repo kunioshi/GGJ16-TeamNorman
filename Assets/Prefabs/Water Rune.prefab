@@ -29,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03dc5efb3fde3c245bbb79871fcc0e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runeElement: Water
+  runeElement: Fire
   img: {fileID: 11490784}
   id: 3
 --- !u!114 &11490784
@@ -95,7 +95,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: runeElement
-      value: Water
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Fijre Rune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

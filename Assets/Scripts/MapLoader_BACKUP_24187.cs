@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -108,7 +108,19 @@ public class MapLoader : MonoBehaviour {
 	}
 
 	public void DisableTargetGridTile () {
+<<<<<<< HEAD
+		foreach (Tile tile in loadedTiles) {
+			if (tile.Position == playerStatus.playerGridPosition) {
+				tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+
+				return;
+			}
+		}
+=======
 		tileManager.getTile(playerStatus.playerGridPosition).gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
 		return;
+>>>>>>> 3bcd9f52de183335cb54b8bd1267c44357bad898
 	}
+
+
 }
