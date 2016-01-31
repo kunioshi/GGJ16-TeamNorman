@@ -24,6 +24,7 @@ public class DemoButton : MonoBehaviour
 
     public void ToMenu()
     {
+		Destroy (GameObject.Find ("GameController"));
         SceneManager.LoadScene("MainMenuScene");
     }
 }
