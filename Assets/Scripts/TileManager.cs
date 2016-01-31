@@ -88,7 +88,7 @@ public class Tile
     }
 }
 
-public class TileManager : PersistentObject {
+public class TileManager : MonoBehaviour {
 
     private Dictionary<Vector2i, Tile> _tiles;  //Tiles that have been seen.
     public int[] probabilities = new int[(int)Tile.TileType.N_TILE_TYPES];  //Probabilities of encountering each terrain type
@@ -199,19 +199,19 @@ public class TileManager : PersistentObject {
         List<Tile> tiles = new List<Tile>();
 
         Vector2i botCorner = center;
-        botCorner.x -= 5;
-        botCorner.y -= 5;
+        botCorner.x -= 9;
+        botCorner.y -= 9;
 
-        for (int x = 0; x < 11; x++, botCorner.x += 1)
+        for (int x = 0; x < 19; x++, botCorner.x += 1)
         {
-            for (int y = 0; y < 11; y++, botCorner.y += 1)
+            for (int y = 0; y < 19; y++, botCorner.y += 1)
             {
                 if (_tiles.ContainsKey(botCorner))
                 {
                     tiles.Add(_tiles[botCorner]);
                 }
             }
-            botCorner.y -= 11;
+            botCorner.y -= 19;
         }
 
         return tiles;
@@ -378,12 +378,7 @@ public class TileManager : PersistentObject {
 
         resetTerrainPenalties();
 
-
-
-        foreach(Tile t in _tiles.Values)
-        {
-            Debug.Log(t.ToString());
-        }
+		Debug.Log ("This is spawned");
     }
 
 	// Use this for initialization

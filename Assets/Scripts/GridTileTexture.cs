@@ -6,11 +6,11 @@ public class GridTileTexture : MonoBehaviour {
 
 	public Sprite hoverTexture;
 
-	public bool enabled { get; private set; }
+//	public bool Enabled { get; private set; }
 
 	// Use this for initialization
 	void Start () {
-		enabled = true;
+//		Enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -20,6 +20,6 @@ public class GridTileTexture : MonoBehaviour {
 
 	public void DisableGridTile () {
 		sprRender.sprite = hoverTexture;
-		enabled = false;
+//		Enabled = false;
 	}
 }
