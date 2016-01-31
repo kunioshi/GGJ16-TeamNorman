@@ -105,12 +105,14 @@ public class MagicCircle : MonoBehaviour
 		if (Input.GetMouseButtonDown (0)) {
 			//click on inventory
 			for (int i = 0; i < 4; i++) {
-				if (isNear (runeList [i].transform.position, Input.mousePosition) && playerStatus.runeCounts [i] > 0) {
-					current = runeList [i];
-					runeList [i] = null;
-					//pick up a rune: -1
-					playerStatus.RemoveRuneFromInventory (current.id);
-					break;
+				if (runeList [i] != null) {
+					if (isNear (runeList [i].transform.position, Input.mousePosition) && playerStatus.runeCounts [i] > 0) {
+						current = runeList [i];
+						runeList [i] = null;
+						//pick up a rune: -1
+						playerStatus.RemoveRuneFromInventory (current.id);
+						break;
+					}
 				}
 			}
 			// click on major slots
