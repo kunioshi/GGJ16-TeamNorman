@@ -7,7 +7,6 @@ public class MapLoader : MonoBehaviour {
 	public TileManager tileManager;
 
 	public GameObject[] plainPrefabs;
-	public GameObject[] forestPrefabs;
 	public GameObject[] mountainPrefabs;
 	public GameObject[] cavePrefabs;
 	public GameObject[] volcanoPrefabs;
@@ -78,10 +77,6 @@ public class MapLoader : MonoBehaviour {
 		switch (tile.Type) {
 		case Tile.TileType.Plains:
 			gridTile = plainPrefabs [tile.SpriteNumber];
-			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
-			break;
-		case Tile.TileType.Forest:
-			gridTile = forestPrefabs [tile.SpriteNumber];
 			tile3DPosition = new Vector3 (tile.Position.x, tile.Position.y, 1);
 			break;
 		case Tile.TileType.Mountain:
