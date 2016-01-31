@@ -111,8 +111,11 @@ public class MapLoader : MonoBehaviour {
 		foreach (Tile tile in loadedTiles) {
 			if (tile.Position == playerStatus.playerGridPosition) {
 				tile.gridTile.GetComponent<GridTileTexture> ().DisableGridTile ();
+
 				return;
 			}
 		}
 	}
+
+
 }
